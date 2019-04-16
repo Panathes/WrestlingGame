@@ -1,0 +1,11 @@
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\bin\Debug\netcoreapp2.2\Gladiator.deps.json
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\bin\Debug\netcoreapp2.2\Gladiator.runtimeconfig.json
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\bin\Debug\netcoreapp2.2\Gladiator.runtimeconfig.dev.json
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\bin\Debug\netcoreapp2.2\Gladiator.dll
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\bin\Debug\netcoreapp2.2\Gladiator.pdb
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\obj\Debug\netcoreapp2.2\Gladiator.csprojAssemblyReference.cache
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\obj\Debug\netcoreapp2.2\Gladiator.csproj.CoreCompileInputs.cache
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\obj\Debug\netcoreapp2.2\Gladiator.AssemblyInfoInputs.cache
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\obj\Debug\netcoreapp2.2\Gladiator.AssemblyInfo.cs
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\obj\Debug\netcoreapp2.2\Gladiator.dll
+C:\Users\ChristopheCharlebois\Documents\Gladiator\Gladiator\obj\Debug\netcoreapp2.2\Gladiator.pdb
