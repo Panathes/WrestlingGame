@@ -78,12 +78,6 @@ namespace Gladiator
               //    Console.WriteLine($"You choose {action2}action");
               if (actionFromPlayer1 == "Weak")
               {
-                  if (player1.Stamina < 20)
-                  {
-                      Console.WriteLine($"Player 1 your stamina is too low, please choose an other action");
-                      Console.WriteLine("Player 1, choose an action : Weak, Strong ou Parry");
-                      actionFromPlayer1 = Console.ReadLine();
-                  }
                   Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.WeakAtt} deal");
                   player2.Pv = player2.Pv - player1.WeakAtt;
                   player1.ReduceStamina();
@@ -94,7 +88,7 @@ namespace Gladiator
                   Console.WriteLine($"{actionFromPlayer2} action from Player 2 ! {player2.WeakAtt} deal");
                   player1.Pv = player1.Pv - player2.WeakAtt;
                   player2.ReduceStamina();
-              }
+               }
               if (actionFromPlayer1 == "Strong")
               {
                   Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.StrongAtt} deal");
