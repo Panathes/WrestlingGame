@@ -1,11 +1,13 @@
 ﻿using System;
 
+
 namespace Gladiator
 {
     class Program
     {
         static void Main(string[] args)
         {
+
             Gladiator player1 = null;
             Gladiator player2 = null;
             // Player 1 choose charater
@@ -78,29 +80,68 @@ namespace Gladiator
               //    Console.WriteLine($"You choose {action2}action");
               if (actionFromPlayer1 == "Weak")
               {
-                  Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.WeakAtt} deal");
-                  player2.Pv = player2.Pv - player1.WeakAtt;
-                  player1.ReduceStamina();
+                  if(player1.Stamina < 20)
+                    {
+                        Console.WriteLine($"Player 1, your stamina is too low, please choose an other action");
+                        Console.WriteLine("Player 1, choose an action : Weak, Strong ou Parry");
+                        actionFromPlayer1 = Console.ReadLine();
+                    }
+                  else
+                  {
+                        Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.WeakAtt} deal");
+                        player2.Pv = player2.Pv - player1.WeakAtt;
+                        player1.ReduceStamina();
+                   }
                }
 
               if (actionFromPlayer2 == "Weak")
               {
-                  Console.WriteLine($"{actionFromPlayer2} action from Player 2 ! {player2.WeakAtt} deal");
-                  player1.Pv = player1.Pv - player2.WeakAtt;
-                  player2.ReduceStamina();
-               }
+                  if (player2.Stamina < 20)
+                  {
+                      Console.WriteLine($"Player 2, your stamina is too low, please choose an other action");
+                      Console.WriteLine("Player 2, choose an action : Weak, Strong ou Parry");
+                      actionFromPlayer1 = Console.ReadLine();
+                  }
+                  else
+                  {
+                      Console.WriteLine($"{actionFromPlayer2} action from Player 2 ! {player2.WeakAtt} deal");
+                      player1.Pv = player1.Pv - player2.WeakAtt;
+                      player2.ReduceStamina();
+                  }
+                }
+
               if (actionFromPlayer1 == "Strong")
               {
-                  Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.StrongAtt} deal");
-                  player2.Pv = player2.Pv - player1.StrongAtt;
-                  player1.DivideStamina();
-              }
+                  if (player1.Stamina < 50)
+                  {
+                      Console.WriteLine($"Player 1, your stamina is too low, please choose an other action");
+                      Console.WriteLine("Player 1, choose an action : Weak, Strong ou Parry");
+                      actionFromPlayer1 = Console.ReadLine();
+                  }
+                  else
+                  {
+                      Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.StrongAtt} deal");
+                      player2.Pv = player2.Pv - player1.StrongAtt;
+                      player1.BigReduceStamina();
+                  }
+                }
+
               if (actionFromPlayer2 == "Strong")
               {
-                  Console.WriteLine($"{actionFromPlayer2} action from Player 2 ! {player2.StrongAtt} deal");
-                  player1.Pv = player1.Pv - player2.StrongAtt;
-                  player2.DivideStamina();
-              }
+                  if (player2.Stamina < 50)
+                  {
+                      Console.WriteLine($"Player 2, your stamina is too low, please choose an other action");
+                      Console.WriteLine("Player 2, choose an action : Weak, Strong ou Parry");
+                      actionFromPlayer2 = Console.ReadLine();
+                  }
+                  else
+                  {
+                      Console.WriteLine($"{actionFromPlayer2} action from Player 2 ! {player2.StrongAtt} deal");
+                      player1.Pv = player1.Pv - player2.StrongAtt;
+                      player2.BigReduceStamina();
+                  }
+                }
+
               if (actionFromPlayer1 == "Parry")
               {
                   Console.WriteLine($"Player 1 {actionFromPlayer1} ! No damage taken");
@@ -115,6 +156,7 @@ namespace Gladiator
                       player1.GainStamina();
                   }
               }
+
               if (actionFromPlayer2 == "Parry")
               {
                   Console.WriteLine($"Player 2 {actionFromPlayer2} ! No damage taken");
@@ -122,7 +164,7 @@ namespace Gladiator
 
                   if (player2.Stamina == 100)
                   {
-                      player2.Stamina = player1.Stamina;
+                      player2.Stamina = player2.Stamina;
                   }
                   else
                   {

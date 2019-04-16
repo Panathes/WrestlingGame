@@ -19,7 +19,7 @@ namespace Gladiator
             return Stamina = Stamina - 20;
         }
 
-        public int DivideStamina()
+        public int BigReduceStamina()
         {
             return Stamina = Stamina - 50;
         }
