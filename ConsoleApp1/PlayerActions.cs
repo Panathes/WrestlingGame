@@ -4,10 +4,10 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    enum PlayerAction
+    enum PlayerActions
     {
-        WeakAttack,
-        StrongAttack,
-        Parry
+        Weak = 1,
+        Strong = 2,
+        Parry = 3
     }
 }

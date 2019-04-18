@@ -5,6 +5,13 @@ namespace ConsoleApp1
 {
     class Program
     {
+
+        enum PlayerActions
+        {
+            Weak = 1,
+            Strong = 2,
+            Parry = 3
+        }
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
@@ -73,19 +80,19 @@ namespace ConsoleApp1
 
             do
             {
-                Console.WriteLine("Player 1, choose an action : Weak, Strong ou Parry");
-                var actionFromPlayer1 = Console.ReadLine();
-              //   Console.WriteLine($"You choose {action}action");
-                Console.WriteLine("Player 2, choose an action : Weak, Strong ou Parry");
-                var actionFromPlayer2 = Console.ReadLine();
+                Console.WriteLine("Player 1, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+                PlayerActions actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
+                //   Console.WriteLine($"You choose {action}action");
+                Console.WriteLine("Player 2, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+                PlayerActions actionFromPlayer2 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
               //    Console.WriteLine($"You choose {action2}action");
-              if (actionFromPlayer1 == "Weak")
+              if (actionFromPlayer1 == PlayerActions.Weak)
               {
                   if(player1.Stamina < 20)
                     {
                         Console.WriteLine($"Player 1, your stamina is too low, please choose an other action");
-                        Console.WriteLine("Player 1, choose an action : Weak, Strong ou Parry");
-                        actionFromPlayer1 = Console.ReadLine();
+                        Console.WriteLine("Player 1, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+                        actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
                     }
                   else
                   {
@@ -95,13 +102,13 @@ namespace ConsoleApp1
                    }
                }
 
-              if (actionFromPlayer2 == "Weak")
+              if (actionFromPlayer2 == PlayerActions.Weak)
               {
                   if (player2.Stamina < 20)
                   {
                       Console.WriteLine($"Player 2, your stamina is too low, please choose an other action");
-                      Console.WriteLine("Player 2, choose an action : Weak, Strong ou Parry");
-                      actionFromPlayer1 = Console.ReadLine();
+                      Console.WriteLine("Player 2, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+                      actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
                   }
                   else
                   {
@@ -111,13 +118,13 @@ namespace ConsoleApp1
                   }
                 }
 
-              if (actionFromPlayer1 == "Strong")
+              if (actionFromPlayer1 == PlayerActions.Strong)
               {
                   if (player1.Stamina < 50)
                   {
                       Console.WriteLine($"Player 1, your stamina is too low, please choose an other action");
-                      Console.WriteLine("Player 1, choose an action : Weak, Strong ou Parry");
-                      actionFromPlayer1 = Console.ReadLine();
+                      Console.WriteLine("Player 1, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+                      actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
                   }
                   else
                   {
@@ -127,13 +134,13 @@ namespace ConsoleApp1
                   }
                 }
 
-              if (actionFromPlayer2 == "Strong")
+              if (actionFromPlayer2 == PlayerActions.Strong)
               {
                   if (player2.Stamina < 50)
                   {
                       Console.WriteLine($"Player 2, your stamina is too low, please choose an other action");
-                      Console.WriteLine("Player 2, choose an action : Weak, Strong ou Parry");
-                      actionFromPlayer2 = Console.ReadLine();
+                      Console.WriteLine("Player 2, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+                      actionFromPlayer2 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
                   }
                   else
                   {
@@ -143,7 +150,7 @@ namespace ConsoleApp1
                   }
                 }
 
-              if (actionFromPlayer1 == "Parry")
+              if (actionFromPlayer1 == PlayerActions.Parry)
               {
                   Console.WriteLine($"Player 1 {actionFromPlayer1} ! No damage taken");
                   player1.Parry();
@@ -158,7 +165,7 @@ namespace ConsoleApp1
                   }
               }
 
-              if (actionFromPlayer2 == "Parry")
+              if (actionFromPlayer2 == PlayerActions.Parry)
               {
                   Console.WriteLine($"Player 2 {actionFromPlayer2} ! No damage taken");
                   player2.Parry();
