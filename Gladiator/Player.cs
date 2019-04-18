@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Gladiator
 {
-    class Player
+    public class Player
     {
         public string Name { get; set; }
 

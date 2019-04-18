@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Gladiator
+﻿namespace ConsoleApp1
 {
     abstract class Gladiator
     {

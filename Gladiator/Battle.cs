@@ -7,18 +7,20 @@ namespace Gladiator
     {
         public string Winner { get; set; }
         public int Score { get; set; }
-        public List<BattleCharacter> BattleCharacter { get; set; }
+        public List<BattleCharacter> BattleCharacters { get; set; }
+        public List<BattleRound> BattleRounds { get; set; }
 
         public Battle()
         {
-            BattleCharacter = new List<BattleCharacter>();
+            BattleCharacters = new List<BattleCharacter>();
+            BattleRounds = new List<BattleRound>();
         }
 
-        public void StartBattle(Player player1, Player player2)
-        {
-            Player _player1 = player1;
-            Player _player2 = player2;
-        }
+//        public void StartBattle(Player player1, Player player2)
+//        {
+//            Player _player1 = player1;
+//            Player _player2 = player2;
+//        }
 
         public void ChooseCharacter(string character, Player player)
         {
@@ -45,7 +47,13 @@ namespace Gladiator
                 battleCharacter.Gladiator = new Piscus();
             }
 
-            BattleCharacter.Add(battleCharacter);
+            BattleCharacters.Add(battleCharacter);
         }
+
+        public void RetrievePlayerActions()
+        {
+              
+        }
+
     }
 }

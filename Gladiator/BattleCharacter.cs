@@ -10,4 +10,6 @@ namespace Gladiator
         public Player Player { get; set; }
         public Gladiator Gladiator { get; set; }
     }
+
+
 }

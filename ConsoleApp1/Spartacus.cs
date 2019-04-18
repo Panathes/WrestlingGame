@@ -1,4 +1,4 @@
-﻿namespace Gladiator
+﻿namespace ConsoleApp1
 {
     class Spartacus : Gladiator
     {

@@ -47,9 +47,19 @@ namespace Gladiator
                 Console.WriteLine($"{player.Name} a choisi {characterChooseByPlayer} !");
             }
 
-            Console.WriteLine("Player 1, choose an action : Weak, Strong ou Parry");
+            Console.WriteLine($"Players, are you ready ?");
+            var ready = Console.ReadLine();
+            Console.WriteLine($"So let's start this fight !");
 
-            Console.ReadLine();
+            foreach (var player in game.Players)
+            {
+                Console.WriteLine($"P{player.Name}, choose an action : Weak, Strong ou Parry");
+                string actionChooseFromPlayer = Console.ReadLine();
+                Console.ReadLine();
+                Console.WriteLine($"{player.Name}, which player do you want to attack ?");
+                string playerFocus = Console.ReadLine();
+            }
+
 
             // Cree une partie
 
@@ -272,6 +282,7 @@ namespace Gladiator
             //    Console.WriteLine($"Game is over mates !  Player 1 win");
             //}
             //Console.ReadLine();
+
 
         }
     }
