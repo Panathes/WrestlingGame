@@ -2,7 +2,7 @@
 
 namespace ConsoleApp1
 {
-    abstract class Gladiator
+    public abstract class Gladiator
     {
         public abstract string Name { get; set; }
         public abstract int Pv { get; set; }
