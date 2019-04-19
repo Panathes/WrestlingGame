@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ConsoleApp1
 {
-    enum PlayerActions
+    public enum PlayerActions
     {
         Weak = 1,
         Strong = 2,

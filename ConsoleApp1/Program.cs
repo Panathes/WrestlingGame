@@ -5,8 +5,104 @@ namespace ConsoleApp1
 {
     class Program
     {
+        static Gladiator PlayerChooseGladiator(string name)
+        {
+            switch (name)
+            {
+                case "Spartacus":
+                {
+                    Console.WriteLine("You choose Spartacus ! ");
+                    return new Spartacus();
+                    
+                }
+                case "Crixus":
+                {
+                    Console.WriteLine("You choose Crixus ! ");
+                    return  new Crixus();
+                    
+                }
+                case "Piscus":
+                {
+                    Console.WriteLine("You choose Piscus ! ");
+                    return  new Piscus();
+                    
+                }
+                default:
+                    Console.WriteLine("No choice ? Well take Spartacus anyway ! ");
+                    return  new Spartacus();
+                                     
+            }
+        }
+        static void AttackFromAttackingPlayer(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions playeraction)
+        {
+            if (playeraction == PlayerActions.Weak)
+            {
+                Console.WriteLine($"{playeraction} action from {attackingPlayer.Name} ! He deal {attackingPlayer.WeakAtt} damage ");
+                defenderPlayer.Pv = defenderPlayer.Pv - attackingPlayer.WeakAtt;
+                attackingPlayer.ReduceStamina();
+            }
 
-        enum PlayerActions
+            if (playeraction == PlayerActions.Strong)
+            {
+                Console.WriteLine($"{playeraction} action from {attackingPlayer.Name} ! He deal {attackingPlayer.StrongAtt} damage");
+                defenderPlayer.Pv = defenderPlayer.Pv - attackingPlayer.StrongAtt;
+                attackingPlayer.BigReduceStamina();
+            }
+        }
+
+        static PlayerActions TooLowStaminaAttackingPlayer(Gladiator attackingPlayer)
+        {
+            Console.WriteLine($"{attackingPlayer.Name}, your stamina is too low, please choose an other action");
+            Console.WriteLine($"{attackingPlayer.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+            return (PlayerActions)Convert.ToInt32(Console.ReadLine());
+             
+        }
+
+        static void ParryActionFromDefenderPlayer(Gladiator defenderPlayer, PlayerActions playeractions)
+        {
+            Console.WriteLine($"Player {defenderPlayer} ! No damage taken");
+            defenderPlayer.Parry();
+
+            if (defenderPlayer.Stamina == 100)
+            {
+                defenderPlayer.Stamina = defenderPlayer.Stamina;
+            }
+            else
+            {
+                defenderPlayer.GainStamina();
+            }
+        }
+
+        static void WeakActionPlayerScenario(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
+        {
+                if (attackingPlayer.Stamina < 20)
+                {
+                    TooLowStaminaAttackingPlayer(attackingPlayer);
+                }
+                else
+                {
+                    AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
+                }       
+        }
+
+        static void StrongActionPlayerScenario(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
+        {
+                if (attackingPlayer.Stamina < 50)
+                {
+                     TooLowStaminaAttackingPlayer(attackingPlayer);
+                }
+                else
+                {
+                    AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
+                }          
+        }
+
+        static void ParryActionPlayerScenario(Gladiator defenderPlayer, PlayerActions actionFromPlayer)
+        {
+                ParryActionFromDefenderPlayer(defenderPlayer, actionFromPlayer);           
+        }
+
+        public enum PlayerActions
         {
             Weak = 1,
             Strong = 2,
@@ -16,65 +112,13 @@ namespace ConsoleApp1
         {
             Console.WriteLine("Hello World!");
 
-            Gladiator player1 = null;
-            Gladiator player2 = null;
-            // Player 1 choose charater
             Console.WriteLine("Player 1, choose your charater : Spartacus, Crixus ou Piscus");
-            var name = Console.ReadLine();
-            switch (name)
-            {
-                case "Spartacus":
-                {
-                    Console.WriteLine("You choose Spartacus ! ");
-                    player1 = new Spartacus();
-                    break;
-                }
-                case "Crixus":
-                {
-                    Console.WriteLine("You choose Crixus ! ");
-                    player1 = new Crixus();
-                    break;
-                }
-                case "Piscus":
-                {
-                    Console.WriteLine("You choose Piscus ! ");
-                    player1 = new Piscus();
-                    break;
-                }
-                default:
-                    Console.WriteLine("No choice ? Well take Spartacus anyway ! ");
-                    player1 = new Spartacus();
-                    break;
-            }
+            var name1 = Console.ReadLine();
+            Gladiator player1 = PlayerChooseGladiator(name1);
 
-            // Player 2 choose charater
             Console.WriteLine("Player 2, choose your charater : Spartacus, Crixus ou Piscus");
             var name2 = Console.ReadLine();
-            switch (name2)
-            {
-                case "Spartacus":
-                {
-                    Console.WriteLine("You choose Spartacus ! ");
-                    player2 = new Spartacus();
-                    break;
-                }
-                case "Crixus":
-                {
-                    Console.WriteLine("You choose Crixus ! ");
-                    player2 = new Crixus();
-                    break;
-                }
-                case "Piscus":
-                {
-                    Console.WriteLine("You choose Piscus ! ");
-                    player2 = new Piscus();
-                    break;
-                }
-                default:
-                    Console.WriteLine("No choice ? Well take Crixus anyway ! ");
-                    player2 = new Crixus();
-                    break;
-            }
+            Gladiator player2 = PlayerChooseGladiator(name2);
 
             Console.WriteLine("Start fight !");
 
@@ -85,112 +129,49 @@ namespace ConsoleApp1
                 //   Console.WriteLine($"You choose {action}action");
                 Console.WriteLine("Player 2, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
                 PlayerActions actionFromPlayer2 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
-              //    Console.WriteLine($"You choose {action2}action");
-              if (actionFromPlayer1 == PlayerActions.Weak)
-              {
-                  if(player1.Stamina < 20)
-                    {
-                        Console.WriteLine($"Player 1, your stamina is too low, please choose an other action");
-                        Console.WriteLine("Player 1, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
-                        actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
-                    }
-                  else
-                  {
-                        Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.WeakAtt} deal");
-                        player2.Pv = player2.Pv - player1.WeakAtt;
-                        player1.ReduceStamina();
-                   }
-               }
 
-              if (actionFromPlayer2 == PlayerActions.Weak)
-              {
-                  if (player2.Stamina < 20)
-                  {
-                      Console.WriteLine($"Player 2, your stamina is too low, please choose an other action");
-                      Console.WriteLine("Player 2, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
-                      actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
-                  }
-                  else
-                  {
-                      Console.WriteLine($"{actionFromPlayer2} action from Player 2 ! {player2.WeakAtt} deal");
-                      player1.Pv = player1.Pv - player2.WeakAtt;
-                      player2.ReduceStamina();
-                  }
+                if (actionFromPlayer1 == PlayerActions.Weak)
+                {
+                    WeakActionPlayerScenario(player1, player2, actionFromPlayer1);
                 }
 
-              if (actionFromPlayer1 == PlayerActions.Strong)
-              {
-                  if (player1.Stamina < 50)
-                  {
-                      Console.WriteLine($"Player 1, your stamina is too low, please choose an other action");
-                      Console.WriteLine("Player 1, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
-                      actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
-                  }
-                  else
-                  {
-                      Console.WriteLine($"{actionFromPlayer1} action from Player 1 ! {player1.StrongAtt} deal");
-                      player2.Pv = player2.Pv - player1.StrongAtt;
-                      player1.BigReduceStamina();
-                  }
+                if (actionFromPlayer2 == PlayerActions.Weak)
+                {
+                    WeakActionPlayerScenario(player2, player1, actionFromPlayer2);
                 }
 
-              if (actionFromPlayer2 == PlayerActions.Strong)
-              {
-                  if (player2.Stamina < 50)
-                  {
-                      Console.WriteLine($"Player 2, your stamina is too low, please choose an other action");
-                      Console.WriteLine("Player 2, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
-                      actionFromPlayer2 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
-                  }
-                  else
-                  {
-                      Console.WriteLine($"{actionFromPlayer2} action from Player 2 ! {player2.StrongAtt} deal");
-                      player1.Pv = player1.Pv - player2.StrongAtt;
-                      player2.BigReduceStamina();
-                  }
+                if (actionFromPlayer1 == PlayerActions.Strong)
+                {
+                    StrongActionPlayerScenario(player1, player2, actionFromPlayer1);
                 }
 
-              if (actionFromPlayer1 == PlayerActions.Parry)
-              {
-                  Console.WriteLine($"Player 1 {actionFromPlayer1} ! No damage taken");
-                  player1.Parry();
+                if (actionFromPlayer2 == PlayerActions.Strong)
+                {
+                    StrongActionPlayerScenario(player2, player1, actionFromPlayer2);
+                }
 
-                  if (player1.Stamina == 100)
-                  {
-                      player1.Stamina = player1.Stamina;
-                  }
-                  else
-                  {
-                      player1.GainStamina();
-                  }
-              }
+                if (actionFromPlayer1 == PlayerActions.Parry)
+                {
+                    ParryActionPlayerScenario(player1, actionFromPlayer1);
+                }
 
-              if (actionFromPlayer2 == PlayerActions.Parry)
-              {
-                  Console.WriteLine($"Player 2 {actionFromPlayer2} ! No damage taken");
-                  player2.Parry();
+                if (actionFromPlayer2 == PlayerActions.Parry)
+                {
+                    ParryActionPlayerScenario(player2, actionFromPlayer2);
+                }
 
-                  if (player2.Stamina == 100)
-                  {
-                      player2.Stamina = player2.Stamina;
-                  }
-                  else
-                  {
-                      player2.GainStamina();
-                  }
-              }
               Console.WriteLine($"Player 1's Life {player1.Pv}");
               Console.WriteLine($"Player 2's Life {player2.Pv}");
               Console.WriteLine($"Player 1's Stamina {player1.Stamina}");
               Console.WriteLine($"Player 2's Stamina {player2.Stamina}");
             } while (player1.Pv > 0 && player2.Pv > 0);
 
-            if (player1.Pv > player2.Pv)
+            if (player2.Pv > player1.Pv)
             {
                 Console.WriteLine($"Game is over mates !  Player 2 win");
             }
 
-            if (player1.Pv < player2.Pv)
+            if (player1.Pv > player2.Pv)
             {
                 Console.WriteLine($"Game is over mates !  Player 1 win");
             }

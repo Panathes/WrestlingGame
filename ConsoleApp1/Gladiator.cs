@@ -1,8 +1,10 @@
-﻿namespace ConsoleApp1
+﻿using System;
+
+namespace ConsoleApp1
 {
     abstract class Gladiator
     {
-        public abstract string Name { get; }
+        public abstract string Name { get; set; }
         public abstract int Pv { get; set; }
         public abstract int Stamina { get; set; }
         public abstract int WeakAtt { get; }
