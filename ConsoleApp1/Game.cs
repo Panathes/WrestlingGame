@@ -7,7 +7,6 @@ namespace ConsoleApp1
 
     public class Game
     {
-        Battle battle = new Battle();
         public Gladiator PlayerChooseGladiator(string name)
         {
             switch (name)
@@ -29,7 +28,25 @@ namespace ConsoleApp1
             }
         }
 
-        public void PlayerFightScenario(Gladiator player1, Gladiator player2, PlayerActions actionFromPlayer1, PlayerActions actionFromPlayer2)
+        public Battle StartBattle()
+        {
+            Battle[] battles = new Battle[10];
+
+            Dictionary<string, Gladiator> g = new Dictionary<string, Gladiator>();
+            g.Add("fdsfsdf", g);
+
+            
+
+            HashSet<string> names = new HashSet<string>();
+            names.Add("jerome");
+            names.Add("steven");
+            names.Add("jerome");
+
+            Battle battle = new Battle();
+            return battle;
+        }
+
+        public void PlayerFightScenario(Gladiator player1, Gladiator player2, PlayerActions actionFromPlayer1, PlayerActions actionFromPlayer2, Battle battle )
         {
 
             if (actionFromPlayer1 == PlayerActions.Weak)

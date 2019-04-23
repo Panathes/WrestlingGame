@@ -9,7 +9,6 @@ namespace ConsoleApp1
         {
             Game game = new Game();
             
-
             Console.WriteLine("Gladiator Battle !");
 
             Console.WriteLine("Player 1, choose your charater : Spartacus, Crixus ou Piscus");
@@ -23,7 +22,9 @@ namespace ConsoleApp1
             Console.WriteLine($"You choose {player2.Name} ! ");
 
             Console.WriteLine("Start fight !");
-                
+          
+            Battle battle = game.StartBattle();
+
             do
             {
                 Console.WriteLine($"{player1.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
@@ -35,7 +36,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"{player1.Name} choose {actionFromPlayer1} action !");
                 Console.WriteLine($"{player2.Name} choose {actionFromPlayer2} action !");
 
-                game.PlayerFightScenario(player1, player2, actionFromPlayer1, actionFromPlayer2);
+                game.PlayerFightScenario(player1, player2, actionFromPlayer1, actionFromPlayer2, battle);
 
                 Console.WriteLine($"Player 1's Life {player1.Pv}");
                 Console.WriteLine($"Player 2's Life {player2.Pv}");

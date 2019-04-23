@@ -5,6 +5,15 @@ namespace ConsoleApp1
 {
     public class Battle
     {
+        public string Winner { get; set; }
+        public int Score { get; set; }
+        public Guid BattleID { get; set; }
+
+        public Battle()
+        {
+            BattleID = Guid.NewGuid();
+        }
+
         public void AttackFromAttackingPlayer(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions playeraction)
         {
             if (playeraction == PlayerActions.Weak)
@@ -52,6 +61,7 @@ namespace ConsoleApp1
             {
                 AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
             }
+
         }
 
         public void StrongActionPlayerScenario(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
