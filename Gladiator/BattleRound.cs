@@ -21,7 +21,7 @@ namespace Gladiator
             string _playerAction = playerAction;
             string _playerFocus = playerFocus;
 
-            if ()
+
         }
     }
 

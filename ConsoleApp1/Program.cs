@@ -9,7 +9,7 @@ namespace ConsoleApp1
         {
             Game game = new Game();
 
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Gladiator Battle !");
 
             Console.WriteLine("Player 1, choose your charater : Spartacus, Crixus ou Piscus");
             var name1 = Console.ReadLine();

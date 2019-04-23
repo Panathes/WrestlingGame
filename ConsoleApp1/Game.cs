@@ -12,25 +12,26 @@ namespace ConsoleApp1
             switch (name)
             {
                 case "Spartacus":
-                    {
-                        Console.WriteLine("You choose Spartacus ! ");
-                        return new Spartacus();
-                    }
+                {
+                    Console.WriteLine("You choose Spartacus ! ");
+                    return new Spartacus();
+                }
                 case "Crixus":
-                    {
-                        Console.WriteLine("You choose Crixus ! ");
-                        return new Crixus();
-                    }
+                {
+                    Console.WriteLine("You choose Crixus ! ");
+                    return new Crixus();
+                }
                 case "Piscus":
-                    {
-                        Console.WriteLine("You choose Piscus ! ");
-                        return new Piscus();
-                    }
+                {
+                    Console.WriteLine("You choose Piscus ! ");
+                    return new Piscus();
+                }
                 default:
                     Console.WriteLine("No choice ? Well take Spartacus anyway ! ");
                     return new Spartacus();
             }
         }
+
         public void AttackFromAttackingPlayer(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions playeraction)
         {
             if (playeraction == PlayerActions.Weak)
@@ -98,6 +99,11 @@ namespace ConsoleApp1
         public void ParryActionPlayerScenario(Gladiator defenderPlayer, PlayerActions actionFromPlayer)
         {
             ParryActionFromDefenderPlayer(defenderPlayer, actionFromPlayer);
+        }
+
+        public void PlayerFightScenario(PlayerActions actionFromPlayer1, PlayerActions actionFromPlayer2)
+        {
+
         }
 
     }
