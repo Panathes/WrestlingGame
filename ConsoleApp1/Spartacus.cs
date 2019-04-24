@@ -1,7 +1,10 @@
-﻿namespace ConsoleApp1
+﻿using System;
+
+namespace ConsoleApp1
 {
     class Spartacus : Gladiator
     {
+        public override Guid GladiatorId { get; set; }
         public override string Name { get; set; } = "Spartacus";
         public override int Pv { get; set; } = 90;
         public override int Stamina { get; set; } = 100;

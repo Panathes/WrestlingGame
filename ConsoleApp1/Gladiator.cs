@@ -4,6 +4,7 @@ namespace ConsoleApp1
 {
     public abstract class Gladiator
     {
+        public abstract Guid GladiatorId { get; set; }
         public abstract string Name { get; set; }
         public abstract int Pv { get; set; }
         public abstract int Stamina { get; set; }
