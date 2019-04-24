@@ -37,6 +37,8 @@ namespace ConsoleApp1
                 Console.WriteLine($"{player1.Name} choose {actionFromPlayer1} action !");
                 Console.WriteLine($"{player2.Name} choose {actionFromPlayer2} action !");
 
+                
+
                 try
                 {
                     game.PlayerFightScenario(player1, player2, actionFromPlayer1, actionFromPlayer2, battleId);

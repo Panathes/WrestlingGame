@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace ConsoleApp1
@@ -13,6 +14,9 @@ namespace ConsoleApp1
         {
             BattleID = Guid.NewGuid();
         }
+
+
+//        List<PlayerActions> playerActions = new List<PlayerActions>();
 
         public void AttackFromAttackingPlayer(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions playeraction)
         {
