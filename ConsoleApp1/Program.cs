@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 
 namespace ConsoleApp1
@@ -22,8 +23,8 @@ namespace ConsoleApp1
             Console.WriteLine($"You choose {player2.Name} ! ");
 
             Console.WriteLine("Start fight !");
-          
-            Battle battle = game.StartBattle();
+
+            Guid battleId = game.StartBattle();
 
             do
             {
@@ -36,7 +37,17 @@ namespace ConsoleApp1
                 Console.WriteLine($"{player1.Name} choose {actionFromPlayer1} action !");
                 Console.WriteLine($"{player2.Name} choose {actionFromPlayer2} action !");
 
-                game.PlayerFightScenario(player1, player2, actionFromPlayer1, actionFromPlayer2, battle);
+                try
+                {
+                    game.PlayerFightScenario(player1, player2, actionFromPlayer1, actionFromPlayer2, battleId);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"{player1.Name}, your stamina is too low, please choose an other action");
+                    Console.WriteLine($"{player1.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+                    actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());                    
+                }
+              
 
                 Console.WriteLine($"Player 1's Life {player1.Pv}");
                 Console.WriteLine($"Player 2's Life {player2.Pv}");

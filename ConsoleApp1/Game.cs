@@ -7,6 +7,8 @@ namespace ConsoleApp1
 
     public class Game
     {
+        public Dictionary<Guid, Battle> BattleGroup = new Dictionary<Guid, Battle>();
+
         public Gladiator PlayerChooseGladiator(string name)
         {
             switch (name)
@@ -28,57 +30,62 @@ namespace ConsoleApp1
             }
         }
 
-        public Battle StartBattle()
+        public Guid StartBattle()
         {
-            Battle[] battles = new Battle[10];
-
-            Dictionary<string, Gladiator> g = new Dictionary<string, Gladiator>();
-            g.Add("fdsfsdf", g);
-
-            
-
-            HashSet<string> names = new HashSet<string>();
-            names.Add("jerome");
-            names.Add("steven");
-            names.Add("jerome");
-
             Battle battle = new Battle();
-            return battle;
+   
+            BattleGroup.Add(battle.BattleID, battle);
+
+            return battle.BattleID;
         }
 
-        public void PlayerFightScenario(Gladiator player1, Gladiator player2, PlayerActions actionFromPlayer1, PlayerActions actionFromPlayer2, Battle battle )
+
+        public void PlayerFightScenario(Gladiator player1, Gladiator player2, PlayerActions actionFromPlayer1, PlayerActions actionFromPlayer2, Guid battleId)
         {
-
-            if (actionFromPlayer1 == PlayerActions.Weak)
+            if (BattleGroup.ContainsKey(battleId) )
             {
-                battle.WeakActionPlayerScenario(player1, player2, actionFromPlayer1);
-            }
+                Battle battle = BattleGroup[battleId];
 
-            if (actionFromPlayer2 == PlayerActions.Weak)
-            {
-                battle.WeakActionPlayerScenario(player2, player1, actionFromPlayer2);
-            }
+                    if (actionFromPlayer1 == PlayerActions.Weak)
+                    {
+                        battle.WeakActionPlayerScenario(player1, player2, actionFromPlayer1);
+                    }
 
-            if (actionFromPlayer1 == PlayerActions.Strong)
-            {
-                battle.StrongActionPlayerScenario(player1, player2, actionFromPlayer1);
-            }
+                    if (actionFromPlayer2 == PlayerActions.Weak)
+                    {
+                        battle.WeakActionPlayerScenario(player2, player1, actionFromPlayer2);
+                    }
 
-            if (actionFromPlayer2 == PlayerActions.Strong)
-            {
-                battle.StrongActionPlayerScenario(player2, player1, actionFromPlayer2);
-            }
+                    if (actionFromPlayer1 == PlayerActions.Strong)
+                    {
+                        battle.StrongActionPlayerScenario(player1, player2, actionFromPlayer1);
+                    }
 
-            if (actionFromPlayer1 == PlayerActions.Parry)
-            {
-                battle.ParryActionPlayerScenario(player1, actionFromPlayer1);
-            }
+                    if (actionFromPlayer2 == PlayerActions.Strong)
+                    {
+                        battle.StrongActionPlayerScenario(player2, player1, actionFromPlayer2);
+                    }
 
-            if (actionFromPlayer2 == PlayerActions.Parry)
-            {
-                battle.ParryActionPlayerScenario(player2, actionFromPlayer2);
+                    if (actionFromPlayer1 == PlayerActions.Parry)
+                    {
+                        battle.ParryActionPlayerScenario(player1, actionFromPlayer1);
+                    }
+
+                    if (actionFromPlayer2 == PlayerActions.Parry)
+                    {
+                        battle.ParryActionPlayerScenario(player2, actionFromPlayer2);
+                    }              
             }
         }
 
+        //            Battle[] battles = new Battle[10];
+        //
+        //            Dictionary<string, Gladiator> g = new Dictionary<string, Gladiator>();
+        //            g.Add("fdsfsdf", g);
+        //
+        //            HashSet<string> names = new HashSet<string>();
+        //            names.Add("jerome");
+        //            names.Add("steven");
+        //            names.Add("jerome");
     }
 }

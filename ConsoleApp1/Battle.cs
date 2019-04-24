@@ -53,32 +53,49 @@ namespace ConsoleApp1
 
         public void WeakActionPlayerScenario(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
         {
-            if (attackingPlayer.Stamina < 20)
-            {
-                TooLowStaminaAttackingPlayer(attackingPlayer);
-            }
-            else
-            {
-                AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
-            }
-
+        
+                if (attackingPlayer.Stamina >= 20)
+                {
+                    AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
+                }                         
+                           
+//                    TooLowStaminaAttackingPlayer(attackingPlayer); 
+                if (attackingPlayer.Stamina < 20)
+                {
+                    throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
+                }
+  
         }
 
         public void StrongActionPlayerScenario(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
         {
-            if (attackingPlayer.Stamina < 50)
-            {
-                TooLowStaminaAttackingPlayer(attackingPlayer);
-            }
-            else
+            if (attackingPlayer.Stamina >= 50)
             {
                 AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
+                
+            }
+            //            TooLowStaminaAttackingPlayer(attackingPlayer);
+
+            if (attackingPlayer.Stamina < 50)
+            {
+                
+                throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
             }
         }
 
         public void ParryActionPlayerScenario(Gladiator defenderPlayer, PlayerActions actionFromPlayer)
         {
             ParryActionFromDefenderPlayer(defenderPlayer, actionFromPlayer);
+        }
+
+        public void Player1ActionExecute()
+        {
+
+        }
+
+        public void Player2ActionExecute()
+        {
+
         }
 
     }
