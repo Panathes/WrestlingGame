@@ -9,8 +9,9 @@ namespace ConsoleApp1
     {
         public Dictionary<Guid, Battle> BattleGroup = new Dictionary<Guid, Battle>();
         public Dictionary<Guid, PlayerActions> PlayerIdAndActionChoose = new Dictionary<Guid, PlayerActions>();
+        public Dictionary<Guid, Guid> PlayerRegistrationInBattle = new Dictionary<Guid, Guid>();
 
-        public Gladiator PlayerChooseGladiator(string name)
+        public Gladiator PlayerCreateGladiator(string name)
         {
             switch (name)
             {
@@ -46,7 +47,16 @@ namespace ConsoleApp1
 
         }
 
+        public void RegisterPlayerInBattle(Guid battleId, Guid PlayerAskingForRegistration)
+        {
+            if (BattleGroup.ContainsKey(battleId))
+            {
+                PlayerRegistrationInBattle.Add(battleId, PlayerAskingForRegistration);                
+            }
+        }
+
 //        public bool PlayerCanAttack = true;
+       
 
         public void CheckIfPlayerCanAttack(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
         {
@@ -82,7 +92,7 @@ namespace ConsoleApp1
             {
                 Battle battle = BattleGroup[battleId];
 
-                    if (actionFromPlayer1 == PlayerActions.Weak)
+                if (actionFromPlayer1 == PlayerActions.Weak)
                     {
                         battle.WeakActionPlayerScenario(player1, player2, actionFromPlayer1);
                     }
@@ -110,7 +120,7 @@ namespace ConsoleApp1
                     if (actionFromPlayer2 == PlayerActions.Parry)
                     {
                         battle.ParryActionPlayerScenario(player2, actionFromPlayer2);
-                    }              
+                   }              
             }
         }
 

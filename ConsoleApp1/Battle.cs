@@ -93,6 +93,9 @@ namespace ConsoleApp1
             ParryActionFromDefenderPlayer(defenderPlayer, actionFromPlayer);
         }
 
+        public void ExecuteBattle()
+        {
 
+        }
     }
 }

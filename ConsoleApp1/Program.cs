@@ -14,20 +14,23 @@ namespace ConsoleApp1
 
             Console.WriteLine("Player 1, choose your charater : Spartacus, Crixus ou Piscus");
             var name1 = Console.ReadLine();
-            Gladiator player1 = game.PlayerChooseGladiator(name1);
+            Gladiator player1 = game.PlayerCreateGladiator(name1);
             Console.WriteLine($"You choose {player1.Name} ! ");
             Console.WriteLine($"{player1.GladiatorId} C'est mal d'affiché l'id !!");
 
 
             Console.WriteLine("Player 2, choose your charater : Spartacus, Crixus ou Piscus");
             var name2 = Console.ReadLine();
-            Gladiator player2 = game.PlayerChooseGladiator(name2);
+            Gladiator player2 = game.PlayerCreateGladiator(name2);
             Console.WriteLine($"You choose {player2.Name} ! ");
             Console.WriteLine($"{player2.GladiatorId} C'est mal d'affiché l'id !!");
 
-            Console.WriteLine("Start fight !");
+            Console.WriteLine("Let's get start !");
 
             Guid battleId = game.StartBattle();
+
+            game.RegisterPlayerInBattle(battleId, player1.GladiatorId);
+            game.RegisterPlayerInBattle(battleId, player2.GladiatorId);
 
             do
             {
@@ -84,7 +87,7 @@ namespace ConsoleApp1
 ////                    Console.WriteLine($"{player1.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
 ////                    actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());                    
 //                }
-              
+                
 
                 Console.WriteLine($"Player 1's Life {player1.Pv}");
                 Console.WriteLine($"Player 2's Life {player2.Pv}");
