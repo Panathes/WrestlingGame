@@ -39,12 +39,42 @@ namespace ConsoleApp1
             return battle.BattleID;
         }
 
+//        public bool PlayerCanAttack = true;
+
+        public void CheckIfPlayerCanAttack(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
+        {
+
+//            if (actionFromPlayer == PlayerActions.Weak && attackingPlayer.Stamina >= 20)
+//            {
+////                PlayerCanAttack = true;
+//            }
+
+            if (actionFromPlayer == PlayerActions.Weak && attackingPlayer.Stamina < 20)
+            {
+//                PlayerCanAttack = false;
+                throw new PlayerFightLowStaminaException($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
+            }
+
+//            if (actionFromPlayer == PlayerActions.Strong && attackingPlayer.Stamina >= 50)
+//            {
+////                PlayerCanAttack = true;
+//            }
+
+            if (actionFromPlayer == PlayerActions.Strong && attackingPlayer.Stamina < 50)
+            {
+//                PlayerCanAttack = false;
+                throw new PlayerFightLowStaminaException($"ouais ouais ouais");
+            }
+
+//            return PlayerCanAttack;
+        }
 
         public void PlayerFightScenario(Gladiator player1, Gladiator player2, PlayerActions actionFromPlayer1, PlayerActions actionFromPlayer2, Guid battleId)
         {
             if (BattleGroup.ContainsKey(battleId) )
             {
                 Battle battle = BattleGroup[battleId];
+
 
                     if (actionFromPlayer1 == PlayerActions.Weak)
                     {

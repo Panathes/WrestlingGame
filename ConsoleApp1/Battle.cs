@@ -34,13 +34,13 @@ namespace ConsoleApp1
             }
         }
 
-        public PlayerActions TooLowStaminaAttackingPlayer(Gladiator attackingPlayer)
-        {
-            Console.WriteLine($"{attackingPlayer.Name}, your stamina is too low, please choose an other action");
-            Console.WriteLine($"{attackingPlayer.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
-            return (PlayerActions)Convert.ToInt32(Console.ReadLine());
-
-        }
+//        public PlayerActions TooLowStaminaAttackingPlayer(Gladiator attackingPlayer)
+//        {
+//            Console.WriteLine($"{attackingPlayer.Name}, your stamina is too low, please choose an other action");
+//            Console.WriteLine($"{attackingPlayer.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
+//            return (PlayerActions)Convert.ToInt32(Console.ReadLine());
+//
+//        }
 
         public void ParryActionFromDefenderPlayer(Gladiator defenderPlayer, PlayerActions playeractions)
         {
@@ -65,10 +65,10 @@ namespace ConsoleApp1
                 }                         
                            
 //                    TooLowStaminaAttackingPlayer(attackingPlayer); 
-                if (attackingPlayer.Stamina < 20)
-                {
-                    throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
-                }
+//                if (attackingPlayer.Stamina < 20)
+//                {
+//                    throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
+//                }
   
         }
 
@@ -81,22 +81,17 @@ namespace ConsoleApp1
             }
             //            TooLowStaminaAttackingPlayer(attackingPlayer);
 
-            if (attackingPlayer.Stamina < 50)
-            {
-                
-                throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
-            }
+//            if (attackingPlayer.Stamina < 50)
+//            {
+//                
+//                throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
+//            }
         }
 
         public void ParryActionPlayerScenario(Gladiator defenderPlayer, PlayerActions actionFromPlayer)
         {
             ParryActionFromDefenderPlayer(defenderPlayer, actionFromPlayer);
         }
-
-//        public void Player1ActionExecute()
-//        {
-//
-//        }
 
 
     }

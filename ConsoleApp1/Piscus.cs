@@ -12,7 +12,7 @@ namespace ConsoleApp1
         public override int StrongAtt { get; } = 45;
 
         public Piscus()
-        {
+        {          
             GladiatorId = Guid.NewGuid();
         }
     }
