@@ -16,7 +16,8 @@ namespace ConsoleApp1
         }
 
 
-//        List<PlayerActions> playerActions = new List<PlayerActions>();
+        //        List<PlayerActions> playerActions = new List<PlayerActions>();
+        public Dictionary<Guid, PlayerActions> PlayerIdAndActions = new Dictionary<Guid, PlayerActions>();
 
         public void AttackFromAttackingPlayer(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions playeraction)
         {
@@ -92,10 +93,10 @@ namespace ConsoleApp1
             ParryActionFromDefenderPlayer(defenderPlayer, actionFromPlayer);
         }
 
-        public void Player1ActionExecute()
-        {
-
-        }
+//        public void Player1ActionExecute()
+//        {
+//
+//        }
 
 
     }

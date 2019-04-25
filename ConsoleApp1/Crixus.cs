@@ -11,5 +11,10 @@ namespace ConsoleApp1
         public override int WeakAtt { get; } = 10;
         public override int StrongAtt { get; } = 30;
 
+        public Crixus()
+        {
+            GladiatorId = Guid.NewGuid();
+        }
+
     }
 }

@@ -11,6 +11,9 @@ namespace ConsoleApp1
         public override int WeakAtt { get; } = 20;
         public override int StrongAtt { get; } = 60;
 
-
+        public Spartacus()
+        {
+            GladiatorId = Guid.NewGuid();
+        }
     }
 }
