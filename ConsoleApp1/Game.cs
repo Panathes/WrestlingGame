@@ -33,7 +33,7 @@ namespace ConsoleApp1
 
         public void ActionChooseByPlayers(Guid playerId, PlayerActions actionChooseByPlayer)
         {
-            
+            PlayerIdAndActionChoose.Add(playerId, actionChooseByPlayer);
         }
 
         public Guid StartBattle()

@@ -90,10 +90,7 @@ namespace ConsoleApp1
                 Console.WriteLine($"Player 2's Life {player2.Pv}");
                 Console.WriteLine($"Player 1's Stamina {player1.Stamina}");
                 Console.WriteLine($"Player 2's Stamina {player2.Stamina}");
-                
-                Console.WriteLine(player1.GladiatorId);
-                Console.WriteLine(player2.GladiatorId);
-
+                             
                 game.PlayerIdAndActionChoose.Clear();
 
             } while (player1.Pv > 0 && player2.Pv > 0);
