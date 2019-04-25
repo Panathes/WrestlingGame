@@ -38,13 +38,15 @@ namespace ConsoleApp1
                 Console.WriteLine($"{player2.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
                 PlayerActions actionFromPlayer2 = (PlayerActions)Convert.ToInt32(Console.ReadLine());
 
+                game.ActionChooseByPlayers(player1.GladiatorId, actionFromPlayer1);
+                game.ActionChooseByPlayers(player2.GladiatorId, actionFromPlayer2);
+
                 Console.WriteLine($"{player1.Name} choose {actionFromPlayer1} action !");
                 Console.WriteLine($"{player2.Name} choose {actionFromPlayer2} action !");
 
                 try
                 {
                     game.CheckIfPlayerCanAttack(player1, player2, actionFromPlayer1);
-                    game.CheckIfPlayerCanAttack(player2, player1, actionFromPlayer2);
                 }
                 
                 catch (PlayerFightLowStaminaException e)
@@ -88,6 +90,12 @@ namespace ConsoleApp1
                 Console.WriteLine($"Player 2's Life {player2.Pv}");
                 Console.WriteLine($"Player 1's Stamina {player1.Stamina}");
                 Console.WriteLine($"Player 2's Stamina {player2.Stamina}");
+                
+                Console.WriteLine(player1.GladiatorId);
+                Console.WriteLine(player2.GladiatorId);
+
+                game.PlayerIdAndActionChoose.Clear();
+
             } while (player1.Pv > 0 && player2.Pv > 0);
 
             if (player2.Pv > player1.Pv)

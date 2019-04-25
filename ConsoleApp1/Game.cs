@@ -8,6 +8,7 @@ namespace ConsoleApp1
     public class Game
     {
         public Dictionary<Guid, Battle> BattleGroup = new Dictionary<Guid, Battle>();
+        public Dictionary<Guid, PlayerActions> PlayerIdAndActionChoose = new Dictionary<Guid, PlayerActions>();
 
         public Gladiator PlayerChooseGladiator(string name)
         {
@@ -30,6 +31,11 @@ namespace ConsoleApp1
             }
         }
 
+        public void ActionChooseByPlayers(Guid playerId, PlayerActions actionChooseByPlayer)
+        {
+            
+        }
+
         public Guid StartBattle()
         {
             Battle battle = new Battle();
@@ -37,6 +43,7 @@ namespace ConsoleApp1
             BattleGroup.Add(battle.BattleID, battle);
 
             return battle.BattleID;
+
         }
 
 //        public bool PlayerCanAttack = true;
@@ -74,7 +81,6 @@ namespace ConsoleApp1
             if (BattleGroup.ContainsKey(battleId) )
             {
                 Battle battle = BattleGroup[battleId];
-
 
                     if (actionFromPlayer1 == PlayerActions.Weak)
                     {
