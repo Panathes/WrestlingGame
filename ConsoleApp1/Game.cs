@@ -8,120 +8,83 @@ namespace ConsoleApp1
     public class Game
     {
         public Dictionary<Guid, Battle> BattleGroup = new Dictionary<Guid, Battle>();
-        public Dictionary<Guid, PlayerActions> PlayerIdAndActionChoose = new Dictionary<Guid, PlayerActions>();
-        public Dictionary<Guid, Guid> PlayerRegistrationInBattle = new Dictionary<Guid, Guid>();
 
-        public Gladiator PlayerCreateGladiator(string name)
+        public void ChooseAction(Guid playerId, PlayerActions action, Guid battleId)
         {
-            switch (name)
+            if (BattleGroup.ContainsKey(battleId))
             {
-                case "Spartacus":
-                {
-                    return new Spartacus();
-                }
-                case "Crixus":
-                {
-                    return new Crixus();
-                }
-                case "Piscus":
-                {
-                    return new Piscus();
-                }
-                default:
-                    return new Spartacus();
+                Battle battle = BattleGroup[battleId];
+                battle.SetAction(playerId, action);
             }
         }
 
-        public void ActionChooseByPlayers(Guid playerId, PlayerActions actionChooseByPlayer)
-        {
-            PlayerIdAndActionChoose.Add(playerId, actionChooseByPlayer);
-        }
 
         public Guid StartBattle()
         {
             Battle battle = new Battle();
-   
+
             BattleGroup.Add(battle.BattleID, battle);
 
             return battle.BattleID;
 
         }
 
-        public void RegisterPlayerInBattle(Guid battleId, Guid PlayerAskingForRegistration)
+        public Guid RegisterPlayerInBattle(Guid battleId, String name)
+        {
+
+            if (BattleGroup.ContainsKey(battleId))
+            {
+                Gladiator choosedGladiator = null;
+                switch (name)
+                {
+                    case "Spartacus":
+                        {
+                            choosedGladiator = new Spartacus();
+                            break;
+                        }
+                    case "Crixus":
+                        {
+                            choosedGladiator = new Crixus();
+                            break;
+                        }
+                    case "Piscus":
+                        {
+                            choosedGladiator = new Piscus();
+                            break;
+                        }
+                    default:
+                        choosedGladiator = new Spartacus();
+                        break;
+
+                }
+
+                BattleGroup[battleId].Players.Add(choosedGladiator.GladiatorId, choosedGladiator);
+                return choosedGladiator.GladiatorId;
+            }
+
+            return Guid.Empty;
+
+        }
+
+        public bool RunBattle(Guid battleId)
         {
             if (BattleGroup.ContainsKey(battleId))
             {
-                PlayerRegistrationInBattle.Add(battleId, PlayerAskingForRegistration);                
+                Battle battle = BattleGroup[battleId];
+                battle.ExecuteBattle();
+                return battle.IsBattleFinish();
             }
+            throw new Exception("Battle not found");
         }
 
-//        public bool PlayerCanAttack = true;
-       
-
-        public void CheckIfPlayerCanAttack(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
+        public string FinishBattle(Guid battleId)
         {
-
-//            if (actionFromPlayer == PlayerActions.Weak && attackingPlayer.Stamina >= 20)
-//            {
-////                PlayerCanAttack = true;
-//            }
-
-            if (actionFromPlayer == PlayerActions.Weak && attackingPlayer.Stamina < 20)
-            {
-//                PlayerCanAttack = false;
-                throw new PlayerFightLowStaminaException($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
-            }
-
-//            if (actionFromPlayer == PlayerActions.Strong && attackingPlayer.Stamina >= 50)
-//            {
-////                PlayerCanAttack = true;
-//            }
-
-            if (actionFromPlayer == PlayerActions.Strong && attackingPlayer.Stamina < 50)
-            {
-//                PlayerCanAttack = false;
-                throw new PlayerFightLowStaminaException($"ouais ouais ouais");
-            }
-
-//            return PlayerCanAttack;
-        }
-
-        public void PlayerFightScenario(Gladiator player1, Gladiator player2, PlayerActions actionFromPlayer1, PlayerActions actionFromPlayer2, Guid battleId)
-        {
-            if (BattleGroup.ContainsKey(battleId) )
+            if (BattleGroup.ContainsKey(battleId))
             {
                 Battle battle = BattleGroup[battleId];
-
-                if (actionFromPlayer1 == PlayerActions.Weak)
-                    {
-                        battle.WeakActionPlayerScenario(player1, player2, actionFromPlayer1);
-                    }
-
-                    if (actionFromPlayer2 == PlayerActions.Weak)
-                    {
-                        battle.WeakActionPlayerScenario(player2, player1, actionFromPlayer2);
-                    }
-
-                    if (actionFromPlayer1 == PlayerActions.Strong)
-                    {
-                        battle.StrongActionPlayerScenario(player1, player2, actionFromPlayer1);
-                    }
-
-                    if (actionFromPlayer2 == PlayerActions.Strong)
-                    {
-                        battle.StrongActionPlayerScenario(player2, player1, actionFromPlayer2);
-                    }
-
-                    if (actionFromPlayer1 == PlayerActions.Parry)
-                    {
-                        battle.ParryActionPlayerScenario(player1, actionFromPlayer1);
-                    }
-
-                    if (actionFromPlayer2 == PlayerActions.Parry)
-                    {
-                        battle.ParryActionPlayerScenario(player2, actionFromPlayer2);
-                   }              
+                return battle.PlayerWinner();
             }
+            throw new Exception("Battle not found");
         }
 
         //            Battle[] battles = new Battle[10];

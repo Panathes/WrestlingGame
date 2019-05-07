@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.IO;
+using System.Linq;
 
 namespace ConsoleApp1
 {
@@ -15,9 +17,11 @@ namespace ConsoleApp1
             BattleID = Guid.NewGuid();
         }
 
+        private Dictionary<Guid, PlayerActions> _playerActions = new Dictionary<Guid, PlayerActions>();
+
+        public Dictionary<Guid, Gladiator> Players = new Dictionary<Guid, Gladiator>();
 
         //        List<PlayerActions> playerActions = new List<PlayerActions>();
-        public Dictionary<Guid, PlayerActions> PlayerIdAndActions = new Dictionary<Guid, PlayerActions>();
 
         public void AttackFromAttackingPlayer(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions playeraction)
         {
@@ -34,13 +38,33 @@ namespace ConsoleApp1
             }
         }
 
-//        public PlayerActions TooLowStaminaAttackingPlayer(Gladiator attackingPlayer)
-//        {
-//            Console.WriteLine($"{attackingPlayer.Name}, your stamina is too low, please choose an other action");
-//            Console.WriteLine($"{attackingPlayer.Name}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
-//            return (PlayerActions)Convert.ToInt32(Console.ReadLine());
-//
-//        }
+        public void SetAction(Guid playerId, PlayerActions action)
+        {
+
+                var gladiator = Players[playerId];
+
+
+                if (action == PlayerActions.Weak && gladiator.Stamina < 20)
+                {
+                    //                PlayerCanAttack = false;
+                    throw new PlayerFightLowStaminaException($"An error has occurred");
+                }
+                if (action == PlayerActions.Strong && gladiator.Stamina < 50)
+                {
+                    //                PlayerCanAttack = false;
+                    throw new PlayerFightLowStaminaException($"An error has occurred");
+                }
+
+                if (_playerActions.ContainsKey(playerId))
+                {
+                    _playerActions[playerId] = action;
+                }
+                else
+                {
+                    _playerActions.Add(playerId, action);
+                }
+
+        }
 
         public void ParryActionFromDefenderPlayer(Gladiator defenderPlayer, PlayerActions playeractions)
         {
@@ -58,17 +82,11 @@ namespace ConsoleApp1
 
         public void WeakActionPlayerScenario(Gladiator attackingPlayer, Gladiator defenderPlayer, PlayerActions actionFromPlayer)
         {
-        
+            
                 if (attackingPlayer.Stamina >= 20)
                 {
                     AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
-                }                         
-                           
-//                    TooLowStaminaAttackingPlayer(attackingPlayer); 
-//                if (attackingPlayer.Stamina < 20)
-//                {
-//                    throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
-//                }
+                }                                                
   
         }
 
@@ -79,13 +97,6 @@ namespace ConsoleApp1
                 AttackFromAttackingPlayer(attackingPlayer, defenderPlayer, actionFromPlayer);
                 
             }
-            //            TooLowStaminaAttackingPlayer(attackingPlayer);
-
-//            if (attackingPlayer.Stamina < 50)
-//            {
-//                
-//                throw new Exception($"Stamina {attackingPlayer.Name} too low for {actionFromPlayer}");
-//            }
         }
 
         public void ParryActionPlayerScenario(Gladiator defenderPlayer, PlayerActions actionFromPlayer)
@@ -93,9 +104,74 @@ namespace ConsoleApp1
             ParryActionFromDefenderPlayer(defenderPlayer, actionFromPlayer);
         }
 
+        public bool IsBattleFinish()
+        {
+            int counter = 0;
+
+            foreach (var player in Players.Values)
+            {
+
+                if (player.Pv >0)
+                {
+                    counter++;
+                }
+            }
+            if (counter == 1)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public string PlayerWinner()
+        {
+            var player1 = Players.Values.ElementAt(0);
+            var player2 = Players.Values.ElementAt(1);
+
+            string text = "Still fighting";
+
+            if (player1.Pv > player2.Pv)
+            {
+                return player1.Name;
+            }
+
+            if (player2.Pv > player1.Pv)
+            {
+                return player2.Name;
+            }
+           
+            return text;
+        }
+
+
+
         public void ExecuteBattle()
         {
+            foreach (var playerAction in _playerActions)
+            {
+                var player = Players[playerAction.Key];
 
+                Gladiator playerSource = Players[playerAction.Key];
+                Gladiator playerTarget = Players.Single(p => p.Key != playerSource.GladiatorId).Value;
+
+                var action = playerAction.Value;
+          
+                if (action == PlayerActions.Weak)
+                {
+                    WeakActionPlayerScenario(playerSource, playerTarget, action);
+                }
+
+                if (action == PlayerActions.Strong)
+                {
+                    StrongActionPlayerScenario(playerSource, playerTarget, action);
+                }
+
+                if (action == PlayerActions.Parry)
+                {
+                    ParryActionPlayerScenario(player, action);
+                }
+
+            }
         }
     }
 }
