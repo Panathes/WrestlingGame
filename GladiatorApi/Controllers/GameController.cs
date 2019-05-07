@@ -44,9 +44,13 @@ namespace GladiatorApi.Controllers
         }
 
         [HttpPost("battle")]
-        public void ChooseAction([FromBody] PlayerChooseActionRequestDto request)
+        public Task<IActionResult> ChooseAction([FromBody] PlayerChooseActionRequestDto request)
         {
             _game.ChooseAction(request.PlayerId, request.Action, request.BattleId);
+
+            IActionResult ok = Ok();
+            Task<IActionResult> nothingToSend = Task.FromResult(ok);
+            return nothingToSend;
         }
     }
 }
