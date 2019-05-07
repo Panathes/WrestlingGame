@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
 
-namespace ConsoleApp1
+namespace GladiatorLibrary
 {
-
-    public class Game
+    public class Game : IGame
     {
         public Dictionary<Guid, Battle> BattleGroup = new Dictionary<Guid, Battle>();
 

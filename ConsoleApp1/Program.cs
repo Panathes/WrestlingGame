@@ -67,31 +67,6 @@ namespace ConsoleApp1
                     continue;
                 }
 
-                //                if (game.PlayerCanAttack == false);
-                //                {
-                //                    throw new Exception($"Stamina  too low for throwing a attack");
-                //                }
-
-                //                try
-                //                {
-
-
-//                }
-//                catch (Exception e)
-//                {
-//                      Console.WriteLine($"Players, Someone can't use this attack, please choose your action again");
-//
-////                    Console.WriteLine($"{name1}, your stamina is too low, please choose an other action");
-////                    Console.WriteLine($"{name1}, choose an action : 1 for Weak, 2 for Strong ou 3 for Parry");
-////                    actionFromPlayer1 = (PlayerActions)Convert.ToInt32(Console.ReadLine());                    
-//                }
-
-
-//                Console.WriteLine($"{name1}'s Life (Pv) ");
-//                Console.WriteLine($"{name2}'s Life (Pv)");
-//                Console.WriteLine($"{name1}'s Stamina (Stamina)");
-//                Console.WriteLine($"{name2}'s Stamina (Stamina)");
-
             } while (game.RunBattle(battleId) == false);
 
             string winner = game.FinishBattle(battleId);
