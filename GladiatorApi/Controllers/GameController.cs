@@ -56,21 +56,20 @@ namespace GladiatorApi.Controllers
         [HttpPost("battle")]
         public Task<IActionResult> RunBattle([FromBody] RunningBattleRequestDto request)
         {
-            _game.RunBattle(request.BattleId);
+            bool runBattle = _game.RunBattle(request.BattleId);
+            string winner = _game.FinishBattle(request.BattleId);
+
+            if (runBattle == true) 
+            {
+                IActionResult finish = Ok(winner);
+                Task<IActionResult> ItsOver = Task.FromResult(finish);
+                return ItsOver;
+            }
 
             IActionResult ok = Ok();
             Task<IActionResult> nothingToSend = Task.FromResult(ok);
             return nothingToSend;
         }
 
-        [HttpPost("finish")]
-        public Task<IActionResult> FinishBattle([FromBody] FinishBattleRequestDto request)
-        {
-            _game.FinishBattle(request.BattleId);
-
-            IActionResult ok = Ok();
-            Task<IActionResult> nothingToSend = Task.FromResult(ok);
-            return nothingToSend;
-        }
     }
 }
