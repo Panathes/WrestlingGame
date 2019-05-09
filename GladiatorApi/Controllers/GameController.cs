@@ -43,10 +43,30 @@ namespace GladiatorApi.Controllers
             return test1;
         }
 
-        [HttpPost("battle")]
+        [HttpPost("action")]
         public Task<IActionResult> ChooseAction([FromBody] PlayerChooseActionRequestDto request)
         {
             _game.ChooseAction(request.PlayerId, request.Action, request.BattleId);
+
+            IActionResult ok = Ok();
+            Task<IActionResult> nothingToSend = Task.FromResult(ok);
+            return nothingToSend;
+        }
+
+        [HttpPost("battle")]
+        public Task<IActionResult> RunBattle([FromBody] RunningBattleRequestDto request)
+        {
+            _game.RunBattle(request.BattleId);
+
+            IActionResult ok = Ok();
+            Task<IActionResult> nothingToSend = Task.FromResult(ok);
+            return nothingToSend;
+        }
+
+        [HttpPost("finish")]
+        public Task<IActionResult> FinishBattle([FromBody] FinishBattleRequestDto request)
+        {
+            _game.FinishBattle(request.BattleId);
 
             IActionResult ok = Ok();
             Task<IActionResult> nothingToSend = Task.FromResult(ok);
