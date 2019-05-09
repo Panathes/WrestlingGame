@@ -12,11 +12,11 @@ namespace GladiatorApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GameController : ControllerBase
+    public class BattleController : ControllerBase
     {
         private readonly IGame _game; 
 
-        public GameController(IGame game)
+        public BattleController(IGame game)
         {
             _game = game;
         }
@@ -32,38 +32,38 @@ namespace GladiatorApi.Controllers
 
         }
 
-        [HttpPost("register")]
-        public Task<IActionResult> RegisterPlayerInBattle([FromBody] GameRegisterPlayerRequestDto request)
+        [HttpPost("{id}/register")]
+        public Task<IActionResult> RegisterPlayerInBattle(Guid id, [FromBody] GameRegisterPlayerRequestDto request)
         {
 
-            Guid gladiatorId = _game.RegisterPlayerInBattle(request.BattleId, request.Gladiator);
+            Guid gladiatorId = _game.RegisterPlayerInBattle(id, request.Gladiator);
 
             IActionResult test = Ok(gladiatorId);
             Task<IActionResult> test1 = Task.FromResult(test);
             return test1;
         }
 
-        [HttpPost("action")]
-        public Task<IActionResult> ChooseAction([FromBody] PlayerChooseActionRequestDto request)
+        [HttpPost("{id}/action")]
+        public Task<IActionResult> ChooseAction(Guid id, [FromBody] PlayerChooseActionRequestDto request)
         {
-            _game.ChooseAction(request.PlayerId, request.Action, request.BattleId);
+            _game.ChooseAction(request.PlayerId, request.Action, id);
 
             IActionResult ok = Ok();
             Task<IActionResult> nothingToSend = Task.FromResult(ok);
             return nothingToSend;
         }
 
-        [HttpPost("battle")]
-        public Task<IActionResult> RunBattle([FromBody] RunningBattleRequestDto request)
+        [HttpPost("{id}/fight")]
+        public Task<IActionResult> RunBattle(Guid id)
         {
-            bool runBattle = _game.RunBattle(request.BattleId);
-            string winner = _game.FinishBattle(request.BattleId);
+            bool runBattle = _game.RunBattle(id);
+            string winner = _game.FinishBattle(id);
 
-            if (runBattle == true) 
+            if (runBattle) 
             {
                 IActionResult finish = Ok(winner);
-                Task<IActionResult> ItsOver = Task.FromResult(finish);
-                return ItsOver;
+                Task<IActionResult> itsOver = Task.FromResult(finish);
+                return itsOver;
             }
 
             IActionResult ok = Ok();

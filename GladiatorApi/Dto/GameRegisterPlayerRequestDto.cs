@@ -7,7 +7,6 @@ namespace GladiatorApi.Dto
 {
     public class GameRegisterPlayerRequestDto
     {
-        public Guid BattleId { get; set; }
         public string Gladiator { get; set; }
     }
 }

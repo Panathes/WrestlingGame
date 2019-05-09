@@ -10,6 +10,5 @@ namespace GladiatorApi.Dto
     {
         public Guid PlayerId { get; set; }
         public PlayerActions Action { get; set; }
-        public Guid BattleId { get; set; }
     }
 }
