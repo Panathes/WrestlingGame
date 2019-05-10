@@ -32,6 +32,13 @@ namespace GladiatorApi.Controllers
 
         }
 
+        [HttpGet("list")]
+        public IActionResult ListBattle()
+        {
+            List<Guid> battleList = _game.ListBattle();
+            return Ok(battleList);
+        }
+
         [HttpPost("{id}/register")]
         public Task<IActionResult> RegisterPlayerInBattle(Guid id, [FromBody] GameRegisterPlayerRequestDto request)
         {

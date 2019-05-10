@@ -4,13 +4,19 @@ import Todo from "./Todo";
 // import { getTodos } from "../redux/selectors";
 import { getTodosByVisibilityFilter } from "../redux/selectors";
 import { VISIBILITY_FILTERS } from "../constants";
+import { TodoItem } from "../model/todoItem";
+import { TodoState } from "../redux/reducers/todos";
 
-const TodoList = ({ todos }) => (
+interface TodoListProps {
+  todos: TodoItem[]
+}
+
+const TodoList = ({ todos }: TodoListProps) => (
   <ul className="todo-list">
     {todos && todos.length
       ? todos.map((todo, index) => {
-          return <Todo key={`todo-${todo.id}`} todo={todo} />;
-        })
+        return <Todo key={`todo-${todo.id}`} todo={todo} />;
+      })
       : "No todos, yay!"}
   </ul>
 );
@@ -24,7 +30,7 @@ const TodoList = ({ todos }) => (
 //   return { todos };
 // };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state : TodoState) => {
   const { visibilityFilter } = state;
   const todos = getTodosByVisibilityFilter(state, visibilityFilter);
   return { todos };

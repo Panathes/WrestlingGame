@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GladiatorLibrary
 {
@@ -62,6 +63,12 @@ namespace GladiatorLibrary
 
             return Guid.Empty;
 
+        }
+
+        public List<Guid> ListBattle()
+        {
+            var battleList = BattleGroup.Keys.ToList();
+            return battleList;
         }
 
         public bool RunBattle(Guid battleId)

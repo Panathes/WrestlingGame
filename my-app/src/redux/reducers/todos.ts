@@ -3,12 +3,20 @@ import { any } from "prop-types";
 
 export interface TodoState {
     allIds: number[];
-    byIds: object;
+    byIds: {
+      [key: number]: {
+        // title: string,
+        completed: boolean
+      },
+    };
 }
 
 const initialState: TodoState = {
   allIds: [],
-  byIds: {}
+  byIds: {
+    // title: '',
+    // completed: false
+  }
 };
 
 export default function(state = initialState, action: AllActions) {

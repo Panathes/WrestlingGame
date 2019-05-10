@@ -2,13 +2,21 @@ import React from "react";
 import { connect } from "react-redux";
 import { addTodo } from "../redux/actions";
 
-class AddTodo extends React.Component {
-  constructor(props) {
+interface AddTodoProps {
+  addTodo(input: string): void;
+}
+
+interface AddTodoState {
+  input: string;
+}
+
+class AddTodo extends React.Component<AddTodoProps, AddTodoState> {
+  constructor(props: AddTodoProps) {
     super(props);
     this.state = { input: "" };
   }
 
-  updateInput = input => {
+  updateInput = (input: string) => {
     this.setState({ input });
   };
 

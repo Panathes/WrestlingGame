@@ -2,8 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import cx from "classnames";
 import { toggleTodo } from "../redux/actions";
+import { Todo } from "../model/todoItem";
 
-const Todo = ({ todo, toggleTodo }) => (
+interface TodoProps {
+  todo: Todo;
+  toggleTodo(id: number): void;
+}
+
+const Todo = ({ todo, toggleTodo } : TodoProps) => (
   <li className="todo-item" onClick={() => toggleTodo(todo.id)}>
     {todo && todo.completed ? "👌" : "👋"}{" "}
     <span

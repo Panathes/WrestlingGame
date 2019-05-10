@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GladiatorLibrary
 {
@@ -9,5 +10,6 @@ namespace GladiatorLibrary
         Guid RegisterPlayerInBattle(Guid battleId, String name);
         bool RunBattle(Guid battleId);
         string FinishBattle(Guid battleId);
+        List<Guid> ListBattle();
     }
 }
