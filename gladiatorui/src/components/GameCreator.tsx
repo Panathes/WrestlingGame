@@ -24,13 +24,13 @@ class GameCreator extends React.Component<{}, GameCreatorState>
     }
 
     public render() {
-        return[
+        return(
             <>
                 <h1>Welcome to Gladiator Game ! (such a beautiful name doesn't it ?)</h1>
                 <h1>Please create a game !</h1>
                 <button onClick={this.createBattle}>Create Battle</button>
             </>
-        ]
+        )
     }
 
 }

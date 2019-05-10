@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.NavBar-wrapper{
+	margin-left: 4%;
+}
+
 
 /* 
   Reset css :
