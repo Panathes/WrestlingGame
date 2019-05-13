@@ -9,14 +9,12 @@ import NavBar from "./components/NavBar";
 
 const App: React.FC = () => {
   return (
-      <BrowserRouter>
-        <>
+    <BrowserRouter>
         <NavBar />
-            <Route path="/" component={GameCreator} exact/>
-            <Route path="/list" component={BattleList}/>
-            <Route path="/register" component={RegisterPlayer}/>
-        </>
-      </BrowserRouter>  
+        <Route path="/" component={GameCreator} exact />
+        <Route path="/list" component={BattleList} />
+        <Route path="/:id/register" component={RegisterPlayer} />
+    </BrowserRouter>
   );
 }
 
