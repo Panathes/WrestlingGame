@@ -27,8 +27,10 @@ class GameCreator extends React.Component<{}, GameCreatorState>
         return(
             <>
                 <h1>Welcome to Gladiator Game ! (such a beautiful name doesn't it ?)</h1>
-                <h1>Please create a game !</h1>
-                <button onClick={this.createBattle}>Create Battle</button>
+                <h1>Please create a game !</h1>            
+                <a href="http://localhost:3000/list">
+                    <button onClick={this.createBattle}>Create Battle</button>
+                </a>
             </>
         )
     }

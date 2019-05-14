@@ -36,14 +36,13 @@ class BattleList extends React.Component<RouteComponentProps<BattleListParams>, 
         const { battleIds } = this.state;
         return( 
             <>
-                console.log(history);
                 <h1>Which battle do you want to join ?</h1>
                 <ul>
-                    {battleIds.map(item =>                 
+                    {battleIds.map((item, index) =>                 
                         // this.props.history.push("/:id/register");
-                        <li>
+                        <li key={index}>
                             {/* <a href={`http://localhost:5000/api/battle/${item}/register`}>{item}</a>  */}
-                            <a href={`http://localhost:5000/api/battle/${item}/register`}>{item}</a>
+                            <a href={`http://localhost:3000/${item}/register`}>{item}</a>
                         </li>
                     )}               
                 </ul> 

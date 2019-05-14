@@ -4,12 +4,21 @@ import { RouteComponentProps } from 'react-router';
 interface RegisterPlayerState
 {
     isLoaded: boolean;
-    value: string;    
+    value: string;   
+
 }
 
 interface RegisterPlayerParams 
 {
     id: string;
+}
+
+interface GameRegisterPlayerRequest {
+    gladiator: string;
+}
+
+const req: GameRegisterPlayerRequest = {
+    gladiator: 'Spartacus'
 }
 
 class RegisterPlayer extends React.Component<RouteComponentProps<RegisterPlayerParams>, RegisterPlayerState>
@@ -18,7 +27,7 @@ class RegisterPlayer extends React.Component<RouteComponentProps<RegisterPlayerP
         super(props)
         this.state = {
             isLoaded: false,
-            value: " "
+            value: ''
         };        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,21 +38,24 @@ class RegisterPlayer extends React.Component<RouteComponentProps<RegisterPlayerP
     }
 
     handleSubmit(event : any){
+        event.preventDefault();
+
         const id = this.props.match.params.id;
+        const gladiator: GameRegisterPlayerRequest =  {gladiator: this.state.value } ;
+
         fetch(`http://localhost:5000/api/battle/${id}/register`, {
-            method: 'post',
-            body: JSON.stringify(id),
+            method: 'POST',
+            body: JSON.stringify(gladiator),
             headers: { 'Content-type': 'application/json' }
-          })
+          }).then(response => response.json())
+          .then(response => console.log('Success:', JSON.stringify(response)))
+          .catch(error => console.error('Error:', error));
+          console.log(gladiator);
+          return gladiator;
     }
 
-    // fetch(`http://localhost:5000/api/battle/${id}/register`), {
-    //     method: 'post',
-    //     body: JSON.stringify();
-    // }
-
     public render() {
-        console.log(this.props.match.params.id);
+        console.log(this.props.match.params.id);       
         return(
             <>
                 <h1>Player, choose your fighter !</h1>
