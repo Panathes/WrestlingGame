@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { ClientApiUrl } from '..';
 
 interface RegisterPlayerState
 {
@@ -14,16 +15,13 @@ interface RegisterPlayerParams
 }
 
 interface GameRegisterPlayerRequest {
-    gladiator: string;
-}
-
-const req: GameRegisterPlayerRequest = {
-    gladiator: 'Spartacus'
+    playerId: string;
 }
 
 class RegisterPlayer extends React.Component<RouteComponentProps<RegisterPlayerParams>, RegisterPlayerState>
 {
-    constructor(props: any){
+    constructor(props: any)
+    {
         super(props)
         this.state = {
             isLoaded: false,
@@ -35,27 +33,28 @@ class RegisterPlayer extends React.Component<RouteComponentProps<RegisterPlayerP
 
     handleChange(event : any) {
         this.setState({value: event.target.value});
+
     }
 
     handleSubmit(event : any){
         event.preventDefault();
 
         const id = this.props.match.params.id;
-        const gladiator: GameRegisterPlayerRequest =  {gladiator: this.state.value } ;
+        const gladiator: GameRegisterPlayerRequest =  {playerId: this.state.value } ;
 
-        fetch(`http://localhost:5000/api/battle/${id}/register`, {
+        fetch(ClientApiUrl + `/api/battle/${id}/register`, {
             method: 'POST',
             body: JSON.stringify(gladiator),
             headers: { 'Content-type': 'application/json' }
           }).then(response => response.json())
-          .then(response => console.log('Success:', JSON.stringify(response)))
-          .catch(error => console.error('Error:', error));
-          console.log(gladiator);
-          return gladiator;
+          .then((playerId : string) =>{
+            this.props.history.push(`/${id}/${playerId}/action`);
+          })       
     }
 
     public render() {
-        console.log(this.props.match.params.id);       
+        console.log(this.props.match.params.id); 
+        const id = this.props.match.params.id;      
         return(
             <>
                 <h1>Player, choose your fighter !</h1>

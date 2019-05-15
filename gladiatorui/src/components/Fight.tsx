@@ -20,12 +20,7 @@ class Fight extends React.Component<{}, FightState>
     public render() {
         return(
             <>
-                <h1>Player choose your action</h1>
-                <p>press 1 for Weak attack,press 2 for Strong attack, press 3 for Parry</p>
-                <div>
-                    <p>Some attack from <i>GladiatorName</i></p>
-                    <p>Afficher Life/Stamina</p>
-                </div>
+                <h1>Action in progress...</h1>
             </>
         )
     }

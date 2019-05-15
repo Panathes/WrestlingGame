@@ -141,7 +141,11 @@ namespace GladiatorLibrary
             return text;
         }
 
-
+        public List<Gladiator> ListPlayer()
+        {
+            var playerList = Players.Values.ToList();
+            return playerList;
+        }
 
         public void ExecuteBattle()
         {

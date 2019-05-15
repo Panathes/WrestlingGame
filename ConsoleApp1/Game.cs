@@ -25,6 +25,17 @@ namespace ConsoleApp1
             return battleList;
         }
 
+        public List<Guid> ShowPlayerInBattle(Guid battleId)
+        {
+            if (BattleGroup.ContainsKey(battleId))
+            {
+                Battle battle = BattleGroup[battleId];
+                var playerList = battle.ListPlayer();
+                return playerList;
+            }
+            return new List<Guid>();
+        }
+
         public Guid StartBattle()
         {
             Battle battle = new Battle();

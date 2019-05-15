@@ -1,11 +1,13 @@
 import * as React from 'react';
+import { RouteComponentProps } from 'react-router';
+import { ClientApiUrl } from '..';
 
 interface GameCreatorState
 {
     isLoaded: boolean;
 }
 // {} = any
-class GameCreator extends React.Component<{}, GameCreatorState>
+class GameCreator extends React.Component<RouteComponentProps, GameCreatorState>
 {
     constructor(props: any)
     {
@@ -16,11 +18,11 @@ class GameCreator extends React.Component<{}, GameCreatorState>
     }
 
     createBattle = () => {
-        return fetch('http://localhost:5000/api/battle/', {
+        fetch(ClientApiUrl + '/api/battle/', {
             method: 'POST'
         }).then(response => {
-            return response;
-        })
+            this.props.history.push('/list');
+        });
     }
 
     public render() {
@@ -28,9 +30,7 @@ class GameCreator extends React.Component<{}, GameCreatorState>
             <>
                 <h1>Welcome to Gladiator Game ! (such a beautiful name doesn't it ?)</h1>
                 <h1>Please create a game !</h1>            
-                <a href="http://localhost:3000/list">
-                    <button onClick={this.createBattle}>Create Battle</button>
-                </a>
+                <button onClick={this.createBattle}>Create Battle</button>
             </>
         )
     }

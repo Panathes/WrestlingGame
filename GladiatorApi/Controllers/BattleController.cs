@@ -60,6 +60,27 @@ namespace GladiatorApi.Controllers
             return nothingToSend;
         }
 
+        [HttpGet("{id}/playerlist")]
+        public IActionResult ShowPlayerInBattle(Guid id)
+        {
+
+            List<Gladiator> playerNumber = _game.ShowPlayerInBattle(id);
+            List<GladiatorDto> response = new List<GladiatorDto>();
+
+            for (int i = 0; i < playerNumber.Count; i++)
+            {
+               var toto = new GladiatorDto();
+               toto.Name = playerNumber[i].Name;
+               toto.Pv = playerNumber[i].Pv;
+               toto.Stamina = playerNumber[i].Stamina;
+               toto.GladiatorId = playerNumber[i].GladiatorId;
+               response.Add(toto);
+            }
+
+            return Ok(response);
+//            return Ok(playerNumber);
+        }
+
         [HttpPost("{id}/fight")]
         public Task<IActionResult> RunBattle(Guid id)
         {
@@ -73,7 +94,7 @@ namespace GladiatorApi.Controllers
                 return itsOver;
             }
 
-            IActionResult ok = Ok();
+            IActionResult ok = Ok("aucun gagant");
             Task<IActionResult> nothingToSend = Task.FromResult(ok);
             return nothingToSend;
         }

@@ -143,7 +143,11 @@ namespace ConsoleApp1
             return text;
         }
 
-
+        public List<Guid> ListPlayer()
+        {
+            var playerList = Players.Keys.ToList();
+            return playerList;
+        }
 
         public void ExecuteBattle()
         {

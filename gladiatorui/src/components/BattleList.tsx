@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { ClientApiUrl } from '..';
 
 interface BattleListState
 {
@@ -24,7 +25,7 @@ class BattleList extends React.Component<RouteComponentProps<BattleListParams>, 
     componentDidMount() {        
         console.log("hello");
         
-        fetch('http://localhost:5000/api/battle/list')
+        fetch(ClientApiUrl + '/api/battle/list')
         .then(response => response.json())
         .then((data: string[]) => {
             // debugger;
@@ -42,7 +43,7 @@ class BattleList extends React.Component<RouteComponentProps<BattleListParams>, 
                         // this.props.history.push("/:id/register");
                         <li key={index}>
                             {/* <a href={`http://localhost:5000/api/battle/${item}/register`}>{item}</a>  */}
-                            <a href={`http://localhost:3000/${item}/register`}>{item}</a>
+                            <a href={`/${item}/register`}>{item}</a>
                         </li>
                     )}               
                 </ul> 

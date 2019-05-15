@@ -11,5 +11,6 @@ namespace GladiatorLibrary
         bool RunBattle(Guid battleId);
         string FinishBattle(Guid battleId);
         List<Guid> ListBattle();
+        List<Gladiator> ShowPlayerInBattle(Guid battleId);
     }
 }
