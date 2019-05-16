@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace GladiatorApi.Dto
 {
-    public class GameRegisterPlayerRequestDto
+    public class WinnerInfoDto
     {
-        public string GladiatorName { get; set; }
+        public bool Stillfighting { get; set; }
+        public string Winner { get; set; }
     }
 }

@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace GladiatorApi.Dto
 {
-    public class GladiatorDto
+    public class PlayerInfoDto
     {
-        public Guid GladiatorId { get; set; }
+        public Guid PlayerId { get; set; }
         public string Name { get; set; }
         public int Pv { get; set; }
         public int Stamina { get; set; }
-//        public bool Stillfighting { get; set; }
-//        public string Winner { get; set; }
+        public bool Stillfighting { get; set; }
+        public string Winner { get; set; }
     }
 }

@@ -6,7 +6,8 @@ interface PlayerActionState
 {
     action: number,
     players: Gladiator[];
-    winner : string;
+    playerInfos : PlayerInfo[];
+
 }
 
 interface PlayerActionParams
@@ -16,16 +17,26 @@ interface PlayerActionParams
 }
 
 interface PlayeractionRequest {
-    action : number;
     playerId: string;
+    action : number;
 }
 
 interface Gladiator {
-    gladiatorId : string;
+    playerId : string;
     name: string;
     pv: number;
     stamina: number;
 }
+
+interface PlayerInfo {
+    playerId: string;
+    name: string;
+    pv: number;
+    stamina: number;
+    stillfighting : boolean;
+    winner: string;
+}
+
 
 // const req: PlayerChooseActionRequest = {
 
@@ -39,11 +50,11 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
         this.state = {
             action : 0,
             players : [],
-            winner : "yggyut"
+            playerInfos : [],
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.onClick = this.onClick.bind(this);
+        this.handleBattle = this.handleBattle.bind(this);
     }
     
     componentDidMount() {
@@ -55,15 +66,22 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
         });
     }
 
-    onClick(event : any) {
+    handleBattle(event : any) {
         const id = this.props.match.params.id;
+        const playerId = this.props.match.params.playerId;
+
+        // const attack: PlayeractionRequest = { playerId, action : this.state.action};
+
         fetch(ClientApiUrl + `/api/battle/${id}/fight`, {
             method: 'POST',
+            // body: JSON.stringify(attack),
+            // headers: { 'Content-type': 'application/json' }
         })
-        .then(response => response.json())
-        .then((data : string) => {
-            this.setState({ winner: data});
+        .then(response => response.json())      
+        .then((data : PlayerInfo[]) => {
+            this.setState({ playerInfos: data});
         })
+        // console.log(attack);    
     }
 
 
@@ -76,7 +94,6 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
 
         const id = this.props.match.params.id;
         const playerId = this.props.match.params.playerId;
-        debugger;
 
         const action: PlayeractionRequest = { playerId, action : this.state.action};
         fetch(ClientApiUrl + `/api/battle/${id}/action`, {
@@ -87,7 +104,10 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
     }
 
     public render() {
+
+        const { playerInfos } = this.state;
         const id = this.props.match.params.id;
+
         return(
             <>
                 <h1>Player, choose your action</h1>
@@ -98,8 +118,9 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
                     </label>
                     <input type="submit" value="Submit" />
                 </form>
-                <button onClick={this.onClick}>Attack</button>
-                <p>{this.state.winner}</p>
+                <button onClick={this.handleBattle}>Attack</button>
+                    {playerInfos.map((item, index) => <div key={index}>{item.name +" "+ "pv:"+" "+ item.pv +" "+ "stamina:"+" "+ item.stamina}</div>)}
+                    {playerInfos.map((item, index) => <div key={index}>{"The winner is" + " " + item.winner}</div>)}
             </>
         )
     }

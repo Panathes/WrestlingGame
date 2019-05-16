@@ -15,7 +15,7 @@ interface RegisterPlayerParams
 }
 
 interface GameRegisterPlayerRequest {
-    playerId: string;
+    gladiatorName: string;
 }
 
 class RegisterPlayer extends React.Component<RouteComponentProps<RegisterPlayerParams>, RegisterPlayerState>
@@ -40,7 +40,7 @@ class RegisterPlayer extends React.Component<RouteComponentProps<RegisterPlayerP
         event.preventDefault();
 
         const id = this.props.match.params.id;
-        const gladiator: GameRegisterPlayerRequest =  {playerId: this.state.value } ;
+        const gladiator: GameRegisterPlayerRequest =  {gladiatorName: this.state.value } ;
 
         fetch(ClientApiUrl + `/api/battle/${id}/register`, {
             method: 'POST',

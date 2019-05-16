@@ -43,7 +43,7 @@ namespace GladiatorApi.Controllers
         public Task<IActionResult> RegisterPlayerInBattle(Guid id, [FromBody] GameRegisterPlayerRequestDto request)
         {
 
-            Guid gladiatorId = _game.RegisterPlayerInBattle(id, request.Gladiator);
+            Guid gladiatorId = _game.RegisterPlayerInBattle(id, request.GladiatorName);
 
             IActionResult test = Ok(gladiatorId);
             Task<IActionResult> test1 = Task.FromResult(test);
@@ -84,19 +84,40 @@ namespace GladiatorApi.Controllers
         [HttpPost("{id}/fight")]
         public Task<IActionResult> RunBattle(Guid id)
         {
+            
             bool runBattle = _game.RunBattle(id);
             string winner = _game.FinishBattle(id);
 
+            List<Gladiator> playerNumber = _game.ShowPlayerInBattle(id);
+            List<PlayerInfoDto> response = new List<PlayerInfoDto>();
+
             if (runBattle) 
+            {              
+//                var battleFinish = new WinnerInfoDto();
+//                battleFinish.Stillfighting = true;
+//                battleFinish.Winner = winner;
+//
+//                IActionResult okItsFinish = Ok(battleFinish);
+//                Task<IActionResult> sendYouTheWinner = Task.FromResult(okItsFinish);
+//                return sendYouTheWinner;
+            }
+       
+            for (int i = 0; i < playerNumber.Count; i++)
             {
-                IActionResult finish = Ok(winner);
-                Task<IActionResult> itsOver = Task.FromResult(finish);
-                return itsOver;
+                var toto = new PlayerInfoDto();
+                toto.Name = playerNumber[i].Name;
+                toto.Pv = playerNumber[i].Pv;
+                toto.Stamina = playerNumber[i].Stamina;
+                toto.PlayerId = playerNumber[i].GladiatorId;
+                toto.Stillfighting = runBattle;
+                toto.Winner = winner;
+                response.Add(toto);
             }
 
-            IActionResult ok = Ok("aucun gagant");
+            IActionResult ok = Ok(response);
             Task<IActionResult> nothingToSend = Task.FromResult(ok);
             return nothingToSend;
+
         }
 
     }
