@@ -51,13 +51,18 @@ namespace GladiatorApi.Controllers
         }
 
         [HttpPost("{id}/action")]
-        public Task<IActionResult> ChooseAction(Guid id, [FromBody] PlayerChooseActionRequestDto request)
+        public IActionResult ChooseAction(Guid id, [FromBody] PlayerChooseActionRequestDto request)
         {
-            _game.ChooseAction(request.PlayerId, request.Action, id);
+            try
+            {
+                _game.ChooseAction(request.PlayerId, request.Action, id);
+            }
+            catch (PlayerFightLowStaminaException e)
+            {
+                return BadRequest(new { HasError = true, Message = "Not enough stamina." });
+            }
 
-            IActionResult ok = Ok();
-            Task<IActionResult> nothingToSend = Task.FromResult(ok);
-            return nothingToSend;
+            return Ok();
         }
 
         [HttpGet("{id}/playerlist")]
@@ -84,34 +89,35 @@ namespace GladiatorApi.Controllers
         [HttpPost("{id}/fight")]
         public IActionResult RunBattle(Guid id)
         {
-            bool isBattleFinish = _game.RunBattle(id);
 
-            List<Gladiator> players = _game.ShowPlayerInBattle(id);
-            List<PlayerInfoDto> playerInfoDtos = new List<PlayerInfoDto>();
-            GameInfoDto gameInfoDto = new GameInfoDto();
+                bool isBattleFinish = _game.RunBattle(id);
+
+                List<Gladiator> players = _game.ShowPlayerInBattle(id);
+                List<PlayerInfoDto> playerInfoDtos = new List<PlayerInfoDto>();
+                GameInfoDto gameInfoDto = new GameInfoDto();
 
 
-            foreach (var player in players)
-            {
-                var playerInfoDto = new PlayerInfoDto
+                foreach (var player in players)
                 {
-                    Name = player.Name,
-                    Pv = player.Pv,
-                    Stamina = player.Stamina,
-                    PlayerId = player.GladiatorId
-                };
-                playerInfoDtos.Add(playerInfoDto);
-            }
+                    var playerInfoDto = new PlayerInfoDto
+                    {
+                        Name = player.Name,
+                        Pv = player.Pv,
+                        Stamina = player.Stamina,
+                        PlayerId = player.GladiatorId
+                    };
+                    playerInfoDtos.Add(playerInfoDto);
+                }
 
-            gameInfoDto.Gladiators = playerInfoDtos;
-            gameInfoDto.IsBattleFinish = isBattleFinish;
+                gameInfoDto.Gladiators = playerInfoDtos;
+                gameInfoDto.IsBattleFinish = isBattleFinish;
 
-            if (isBattleFinish)
-            {
-                gameInfoDto.GladiatorId = players.Single(s => s.Pv > 0).GladiatorId;
-            }
+                if (isBattleFinish)
+                {
+                    gameInfoDto.GladiatorId = players.Single(s => s.Pv > 0).GladiatorId;
+                }
+                return Ok(gameInfoDto);
 
-            return Ok(gameInfoDto);
         }
 
         [HttpGet("{id}/winner")]

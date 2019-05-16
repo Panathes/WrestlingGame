@@ -2,7 +2,6 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ClientApiUrl } from '..';
 
-
 interface EndGameState
 {
     playerInfos : PlayerInfo;

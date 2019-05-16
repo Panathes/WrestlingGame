@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace GladiatorLibrary
 {
@@ -38,18 +39,15 @@ namespace GladiatorLibrary
 
         public void SetAction(Guid playerId, PlayerActions action)
         {
-
-                var gladiator = Players[playerId];
-
+                var gladiator = Players[playerId];                
 
                 if (action == PlayerActions.Weak && gladiator.Stamina < 20)
-                {
-                    //                PlayerCanAttack = false;
+                {                  
                     throw new PlayerFightLowStaminaException($"An error has occurred");
                 }
                 if (action == PlayerActions.Strong && gladiator.Stamina < 50)
                 {
-                    //                PlayerCanAttack = false;
+                    
                     throw new PlayerFightLowStaminaException($"An error has occurred");
                 }
 
