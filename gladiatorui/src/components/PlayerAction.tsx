@@ -33,7 +33,11 @@ interface PlayerInfo {
     name: string;
     pv: number;
     stamina: number;
-    stillfighting : boolean;
+}
+
+interface WinnerInfo {
+    gladiators: PlayerInfo[];
+    stillfighting: boolean;
     winner: string;
 }
 
@@ -120,7 +124,6 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
                 </form>
                 <button onClick={this.handleBattle}>Attack</button>
                     {playerInfos.map((item, index) => <div key={index}>{item.name +" "+ "pv:"+" "+ item.pv +" "+ "stamina:"+" "+ item.stamina}</div>)}
-                    {playerInfos.map((item, index) => <div key={index}>{"The winner is" + " " + item.winner}</div>)}
             </>
         )
     }
