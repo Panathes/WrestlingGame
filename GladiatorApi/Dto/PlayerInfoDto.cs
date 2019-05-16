@@ -11,7 +11,6 @@ namespace GladiatorApi.Dto
         public string Name { get; set; }
         public int Pv { get; set; }
         public int Stamina { get; set; }
-        public bool Stillfighting { get; set; }
-        public string Winner { get; set; }
+
     }
 }

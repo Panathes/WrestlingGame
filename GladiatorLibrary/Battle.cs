@@ -108,7 +108,6 @@ namespace GladiatorLibrary
 
             foreach (var player in Players.Values)
             {
-
                 if (player.Pv >0)
                 {
                     counter++;
@@ -141,10 +140,17 @@ namespace GladiatorLibrary
             return text;
         }
 
-        public List<Gladiator> ListPlayer()
+        public List<Gladiator> ListPlayers()
         {
             var playerList = Players.Values.ToList();
             return playerList;
+        }
+
+        public Gladiator ListPlayerWinner()
+        {
+            var playerList = Players.Values.ToList();
+            var player = playerList.Single(s => s.Pv > 0);
+            return player;
         }
 
         public void ExecuteBattle()

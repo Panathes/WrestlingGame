@@ -2,12 +2,14 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ClientApiUrl } from '..';
 
+
+
 interface PlayerActionState
 {
     action: number,
     players: Gladiator[];
     playerInfos : PlayerInfo[];
-
+    gameInfos : GameInfo;
 }
 
 interface PlayerActionParams
@@ -35,9 +37,9 @@ interface PlayerInfo {
     stamina: number;
 }
 
-interface WinnerInfo {
+interface GameInfo {
     gladiators: PlayerInfo[];
-    stillfighting: boolean;
+    isBattleFinish: boolean;
     winner: string;
 }
 
@@ -46,15 +48,22 @@ interface WinnerInfo {
 
 // }
 
-class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParams>, PlayerActionState>
+export type PlayerActionProps = RouteComponentProps<PlayerActionParams>;
+
+class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
 {
-    constructor(props:any)
+    constructor(props:PlayerActionProps)
     {
         super(props);
         this.state = {
             action : 0,
             players : [],
             playerInfos : [],
+            gameInfos : {
+                gladiators: [],
+                isBattleFinish: false,
+                winner:" "
+            }
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -81,9 +90,12 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
             // body: JSON.stringify(attack),
             // headers: { 'Content-type': 'application/json' }
         })
-        .then(response => response.json())      
-        .then((data : PlayerInfo[]) => {
-            this.setState({ playerInfos: data});
+        .then(response => response.json())   
+        .then((data : GameInfo) => {
+            this.setState({ gameInfos: data});  
+            if(data.isBattleFinish) {
+                this.props.history.push(`/${id}/endgame`)
+            }
         })
         // console.log(attack);    
     }
@@ -107,11 +119,13 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
         })
     }
 
+
     public render() {
-
         const { playerInfos } = this.state;
-        const id = this.props.match.params.id;
 
+        const id = this.props.match.params.id;
+        const { gameInfos } = this.state;
+        // let player = winnerInfos.find((w) => w.)
         return(
             <>
                 <h1>Player, choose your action</h1>
@@ -123,7 +137,7 @@ class PlayerAction extends React.Component<RouteComponentProps<PlayerActionParam
                     <input type="submit" value="Submit" />
                 </form>
                 <button onClick={this.handleBattle}>Attack</button>
-                    {playerInfos.map((item, index) => <div key={index}>{item.name +" "+ "pv:"+" "+ item.pv +" "+ "stamina:"+" "+ item.stamina}</div>)}
+                    {playerInfos.map((item, index) => <div key={index}>{item.name +" "+ "pv:"+" "+ item.pv +" "+ "stamina:"+" "+ item.stamina}</div>)}                   
             </>
         )
     }

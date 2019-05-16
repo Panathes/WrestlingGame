@@ -2,21 +2,23 @@ import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import './App.css';
 
-import GameCreator from "./components/GameCreator";
-import BattleList from "./components/BattleList";
-import RegisterPlayer from "./components/RegisterPlayer";
-import Fight from "./components/Fight";
-import PlayerAction from "./components/PlayerAction";
+import GameCreatorPage from "./pages/GameCreator";
+import BattleListPage from "./pages/BattleList";
+import RegisterPlayerPage from "./pages/RegisterPlayer";
+import Fight from "./pages/Fight";
+import PlayerActionPage from "./pages/PlayerAction";
+import EndGamePage from "./pages/EndGame";
 import NavBar from "./components/NavBar";
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
         <NavBar />
-        <Route path="/" component={GameCreator} exact />
-        <Route path="/list" component={BattleList} />
-        <Route path="/:id/register" component={RegisterPlayer} />
-        <Route path="/:id/:playerId/action" component={PlayerAction} />
+        <Route path="/" component={GameCreatorPage} exact />
+        <Route path="/list" component={BattleListPage} />
+        <Route path="/:id/register" component={RegisterPlayerPage} />
+        <Route path="/:id/:playerId/action" component={PlayerActionPage} />
+        <Route path="/:id/endgame" component={EndGamePage} />
         {/* <Route path="/:id/fight" component={Fight} /> */}
     </BrowserRouter>
   );

@@ -76,11 +76,23 @@ namespace GladiatorLibrary
             if (BattleGroup.ContainsKey(battleId))
             {
                 Battle battle = BattleGroup[battleId];
-                var playerList = battle.ListPlayer();
+                var playerList = battle.ListPlayers();
                 return playerList;
             }
             return new List<Gladiator>();
         }
+
+        public Gladiator ShowPlayerWinner(Guid battleId)
+        {
+            if (BattleGroup.ContainsKey(battleId))
+            {
+                Battle battle = BattleGroup[battleId];
+                var playerWinner = battle.ListPlayerWinner();
+                return playerWinner;
+            }
+            return new Spartacus();
+        }
+      
 
         public bool RunBattle(Guid battleId)
         {
