@@ -3,7 +3,6 @@ import { RouteComponentProps } from 'react-router';
 import { ClientApiUrl } from '..';
 
 
-
 interface PlayerActionState {
     action: number,
     players: Gladiator[];
@@ -48,10 +47,6 @@ interface Error {
 }
 
 
-// const req: PlayerChooseActionRequest = {
-
-// }
-
 export type PlayerActionProps = RouteComponentProps<PlayerActionParams>;
 
 class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
@@ -75,6 +70,9 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleBattle = this.handleBattle.bind(this);
+        this.button1 = this.button1.bind(this);
+        this.button2 = this.button2.bind(this);
+        this.button3 = this.button3.bind(this);
     }
 
     componentDidMount() {
@@ -111,6 +109,18 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
         this.setState({ action: event.target.value });
     }
 
+    button1(event: any) {
+        this.setState({ action: 1 });
+    }
+
+    button2(event: any) {
+        this.setState({ action: 2 });
+    }
+
+    button3(event: any) {
+        this.setState({ action: 3 });
+    }
+
     handleSubmit(event: any) {
         event.preventDefault();
 
@@ -132,9 +142,9 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
             });
     }
 
-
     public render() {
         const { playerInfos } = this.state;
+        const { players } = this.state;
 
         const id = this.props.match.params.id;
         const { gameInfos } = this.state;
@@ -145,13 +155,23 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
                 <p>1 for a weak attack, 2 for a strong attack, 3 for a parry</p>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        <input type="text" value={this.state.action} onChange={this.handleChange} />
+                        <button onClick={this.button1}>1</button>
+                        <button onClick={this.button2}>2</button>
+                        <button onClick={this.button3}>3</button>
+                        {/* <input type="text" value={this.state.action} onChange={this.handleChange} /> */}
                     </label>
-                    <input type="submit" value="Submit" />
+                    {/* <input type="submit" value="Submit" /> */}
                 </form>
-                <button onClick={this.handleBattle}>Attack</button>
-                {playerInfos.map((item, index) => <div key={index}>{item.name + " " + "pv:" + " " + item.pv + " " + "stamina:" + " " + item.stamina}</div>)}
-
+                <button onClick={this.handleBattle}>Attack</button>               
+                {players.map((item, index) => <div key={index}>{item.name + this.state.action + " " + item.pv + " " + item.stamina}</div>)}             
+                {playerInfos.map((item, index) =>                 
+                <ul key={index}>
+                    <li></li>
+                    <li>{item.name}</li>
+                    <li>{this.state.action}</li>
+                    <li>{item.pv}</li>
+                    <li>{item.stamina}</li>
+                </ul>)}
                 {this.state.error.hasError ? <p>{this.state.error.message}</p> : null}
             </>
         )

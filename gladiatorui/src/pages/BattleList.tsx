@@ -43,7 +43,7 @@ class BattleList extends React.Component<RouteComponentProps<BattleListParams>, 
                         // this.props.history.push("/:id/register");
                         <li key={index}>
                             {/* <a href={`http://localhost:5000/api/battle/${item}/register`}>{item}</a>  */}
-                            <a href={`/${item}/register`}>{item}</a>
+                            <a href={`/${item}/register`}>{'Battle:' +' ' + index  }</a>
                         </li>
                     )}               
                 </ul> 
