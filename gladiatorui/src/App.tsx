@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 
-import GameCreatorPage from "./pages/GameCreator";
+import GameCreatorPage from "./pages/CreateBattlePage";
 import BattleListPage from "./pages/BattleList";
 import RegisterPlayerPage from "./pages/RegisterPlayer";
 import Fight from "./pages/Fight";
@@ -10,17 +10,16 @@ import PlayerAction from "./pages/PlayerAction";
 import EndGamePage from "./pages/EndGame";
 import NavBar from "./components/NavBar";
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <BrowserRouter>
-        <NavBar />
+    <Switch>
         <Route path="/" component={GameCreatorPage} exact />
         <Route path="/list" component={BattleListPage} />
         <Route path="/:id/register" component={RegisterPlayerPage} />
         <Route path="/:id/:playerId/action" component={PlayerAction} />
         <Route path="/:id/endgame" component={EndGamePage} />
         {/* <Route path="/:id/fight" component={Fight} /> */}
-    </BrowserRouter>
+    </Switch>
   );
 }
 
