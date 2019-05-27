@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace GladiatorApi.Dto
 {
-    public class RunningBattleRequestDto
+    public class BattleIdAndNameRequestDto
     {
         public Guid BattleId { get; set; }
+        public string BattleName { get; set; }
     }
 }

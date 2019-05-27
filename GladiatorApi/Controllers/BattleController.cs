@@ -22,9 +22,9 @@ namespace GladiatorApi.Controllers
         }
 
         [HttpPost]
-        public Task<IActionResult> Create()
+        public Task<IActionResult> Create(string battleName)
         {
-            Guid battleId = _game.StartBattle();
+            Guid battleId = _game.StartBattle(battleName);
 
             IActionResult ret = Ok(battleId);
             Task<IActionResult> test = Task.FromResult(ret);
@@ -37,6 +37,16 @@ namespace GladiatorApi.Controllers
         {
             List<Guid> battleList = _game.ListBattle();
             return Ok(battleList);
+        }
+
+        [HttpPost("{id}/name")]
+        public IActionResult ListBattleName(Guid id, [FromBody] BattleIdAndNameRequestDto request)
+        {
+            List<BattleIdAndNameRequestDto> response = new List<BattleIdAndNameRequestDto>();
+
+            var battleName = new BattleIdAndNameRequestDto {BattleId = id, BattleName = request.BattleName};
+            response.Add(battleName);
+            return Ok(response);
         }
 
         [HttpPost("{id}/register")]

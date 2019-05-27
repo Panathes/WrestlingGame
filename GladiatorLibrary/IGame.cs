@@ -6,7 +6,7 @@ namespace GladiatorLibrary
     public interface IGame
     {
         void ChooseAction(Guid playerId, PlayerActions action, Guid battleId);
-        Guid StartBattle();
+        Guid StartBattle(string name);
         Guid RegisterPlayerInBattle(Guid battleId, String name);
         bool RunBattle(Guid battleId);
         string FinishBattle(Guid battleId);

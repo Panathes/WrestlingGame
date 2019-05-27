@@ -7,6 +7,7 @@ namespace GladiatorLibrary
     public class Game : IGame
     {
         public Dictionary<Guid, Battle> BattleGroup = new Dictionary<Guid, Battle>();
+        public Dictionary<Guid, string> BattleIdAndName = new Dictionary<Guid, string>();
 
         public void ChooseAction(Guid playerId, PlayerActions action, Guid battleId)
         {
@@ -18,9 +19,10 @@ namespace GladiatorLibrary
         }
 
 
-        public Guid StartBattle()
+        public Guid StartBattle(string name)
         {
             Battle battle = new Battle();
+            battle.BattleName = name;
 
             BattleGroup.Add(battle.BattleID, battle);
 
@@ -70,6 +72,7 @@ namespace GladiatorLibrary
             var battleList = BattleGroup.Keys.ToList();
             return battleList;
         }
+
 
         public List<Gladiator> ShowPlayerInBattle(Guid battleId)
         {

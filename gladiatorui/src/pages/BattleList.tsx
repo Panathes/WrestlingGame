@@ -5,11 +5,13 @@ import { ClientApiUrl } from '..';
 interface BattleListState
 {
     battleIds : string[];
+    battleName : string[];
 }
 
 interface BattleListParams 
 {
     id: string;
+    battleName : string;
 }
 
 class BattleList extends React.Component<RouteComponentProps<BattleListParams>, BattleListState>
@@ -19,10 +21,13 @@ class BattleList extends React.Component<RouteComponentProps<BattleListParams>, 
         super(props);
         this.state = {
             battleIds : [],
+            battleName : [] 
         };
     }
 
-    componentDidMount() {        
+    componentDidMount() {
+        const id = this.props.match.params.id;
+        
         console.log("hello");
         
         fetch(ClientApiUrl + '/api/battle/list')
@@ -31,10 +36,20 @@ class BattleList extends React.Component<RouteComponentProps<BattleListParams>, 
             // debugger;
             this.setState({ battleIds: data });
         });
+        // fetch(ClientApiUrl + `/api/battle/${id}/name`)
+        // .then(response => response.json())
+        // .then((data: string[]) => {
+        //     // debugger;
+        //     this.setState({ battleName: data });
+        // });
         // .then(data => console.log(data));
     }
     public render() {     
+
         const { battleIds } = this.state;
+        const { battleName } = this.state;
+
+
         return( 
             <>
                 <h1>Which battle do you want to join ?</h1>
@@ -43,7 +58,7 @@ class BattleList extends React.Component<RouteComponentProps<BattleListParams>, 
                         // this.props.history.push("/:id/register");
                         <li key={index}>
                             {/* <a href={`http://localhost:5000/api/battle/${item}/register`}>{item}</a>  */}
-                            <a href={`/${item}/register`}>{'Battle:' +' ' + index  }</a>
+                            <a href={`/${item}/register`}>{'Battle:' +' ' + index + battleName }</a>
                         </li>
                     )}               
                 </ul> 

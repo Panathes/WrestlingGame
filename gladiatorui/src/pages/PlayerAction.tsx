@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ClientApiUrl } from '..';
-
+import { PlayerAction as PlayerActionEnum } from '../models/PlayerAction';
 
 interface PlayerActionState {
     action: number,
@@ -18,7 +18,7 @@ interface PlayerActionParams {
 
 interface PlayeractionRequest {
     playerId: string;
-    action: number;
+    action: PlayerActionEnum;
 }
 
 interface Gladiator {
@@ -70,9 +70,9 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleBattle = this.handleBattle.bind(this);
-        this.button1 = this.button1.bind(this);
-        this.button2 = this.button2.bind(this);
-        this.button3 = this.button3.bind(this);
+        this.setWeakAction = this.setWeakAction.bind(this);
+        this.setStrongAction = this.setStrongAction.bind(this);
+        this.setParryAction = this.setParryAction.bind(this);
     }
 
     componentDidMount() {
@@ -109,16 +109,16 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
         this.setState({ action: event.target.value });
     }
 
-    button1(event: any) {
-        this.setState({ action: 1 });
+    setWeakAction(event: any) {
+        this.setState({ action: PlayerActionEnum.Weak });
     }
 
-    button2(event: any) {
-        this.setState({ action: 2 });
+    setStrongAction(event: any) {
+        this.setState({ action: PlayerActionEnum.Strong });
     }
 
-    button3(event: any) {
-        this.setState({ action: 3 });
+    setParryAction(event: any) {
+        this.setState({ action: PlayerActionEnum.Parry });
     }
 
     handleSubmit(event: any) {
@@ -134,7 +134,7 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
             headers: { 'Content-type': 'application/json' }
         })
             .then((data) => {
-                if (data.status == 400) {
+                if (data.status === 400) {
                     data.json().then((error) => {
                         this.setState({ error: error })
                     });
@@ -155,9 +155,9 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
                 <p>1 for a weak attack, 2 for a strong attack, 3 for a parry</p>
                 <form onSubmit={this.handleSubmit}>
                     <label>
-                        <button onClick={this.button1}>1</button>
-                        <button onClick={this.button2}>2</button>
-                        <button onClick={this.button3}>3</button>
+                        <button onClick={this.setPlayerAction(PlayerActionEnum.Weak)}>Weak</button>
+                        <button onClick={this.setPlayerAction(PlayerActionEnum.Strong)}>Strong</button>
+                        <button onClick={this.setPlayerAction(PlayerActionEnum.Parry)}>Parry</button>
                         {/* <input type="text" value={this.state.action} onChange={this.handleChange} /> */}
                     </label>
                     {/* <input type="submit" value="Submit" /> */}
@@ -175,6 +175,12 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
                 {this.state.error.hasError ? <p>{this.state.error.message}</p> : null}
             </>
         )
+    }
+
+    private setPlayerAction = (action: PlayerActionEnum) => () => {
+        this.setState({ 
+            action
+        });
     }
 }
 

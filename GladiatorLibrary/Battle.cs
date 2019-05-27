@@ -7,9 +7,10 @@ namespace GladiatorLibrary
 {
     public class Battle
     {
-        public string Winner { get; set; }
-        public int Score { get; set; }
+//        public string Winner { get; set; }
+//        public int Score { get; set; }
         public Guid BattleID { get; set; }
+        public string BattleName { get; set; }
 
         public Battle()
         {
