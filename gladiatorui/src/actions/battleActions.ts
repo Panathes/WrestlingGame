@@ -1,14 +1,18 @@
-import { AnyAction } from "redux";
+import { AnyAction, Action } from "redux";
 import { AppThunkAction } from "../store";
 import { MainActions } from "./mainActions";
 import { ClientApiUrl } from "..";
-import { push } from "react-router-redux";
+import { push } from "connected-react-router";
 
-export interface CreateBattleAction {
-    type: 'BATTLE_CREATE';
+const name = 'BATTLE';
+
+export interface CreateBattleAction extends Action<'BATTLE_CREATE'> {
     battleId: string;
 }
 
+export interface ListingBattleAction extends Action<'BATTLE_LIST'> {
+    battleIds: string[];
+}
 
 export const CreateBattle = (): AppThunkAction<MainActions> => (dispatch, getState): Promise<any> => {
     return fetch(ClientApiUrl + '/api/battle/', {
@@ -16,12 +20,25 @@ export const CreateBattle = (): AppThunkAction<MainActions> => (dispatch, getSta
     })
     .then(response => response.json())
     .then((response: string) => {
-        const toto: CreateBattleAction = {
+        const createBattleAction: CreateBattleAction = {
             type: 'BATTLE_CREATE',
             battleId: response
         };
-        dispatch(toto);
+        dispatch(createBattleAction);
         dispatch(push('/list'));
     });  
+    
+}
+
+export const ListingBattle = (): AppThunkAction<MainActions> => (dispatch, getState): Promise<any> => {  
+    return fetch(ClientApiUrl + '/api/battle/list')
+    .then(response => response.json())
+    .then((response: string[]) => {
+        const battleListing: ListingBattleAction = {
+            type: 'BATTLE_LIST',
+            battleIds: response
+        }
+        dispatch(battleListing);
+    }); 
     
 }

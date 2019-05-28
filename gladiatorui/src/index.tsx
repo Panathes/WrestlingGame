@@ -9,7 +9,7 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 import { ApplicationState } from './store';
 import { initialState } from './reducers/mainReducer';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 
 export const ClientApiUrl = 'http://10.2.103.16:5000';
 
@@ -29,9 +29,12 @@ const appState: ApplicationState = {
 const store = configureStore(history, appState);
 
 
-ReactDOM.render(<Provider store={store}>
-    <ConnectedRouter history={history} children={App()} /> 
-</Provider>, document.getElementById('root'));
+ReactDOM.render(
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
+    </Provider>, document.getElementById('root'));
 
 
 // If you want your app to work offline and load faster, you can change

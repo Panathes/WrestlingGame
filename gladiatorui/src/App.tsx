@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import './App.css';
 
 import GameCreatorPage from "./pages/CreateBattlePage";
-import BattleListPage from "./pages/BattleList";
-import RegisterPlayerPage from "./pages/RegisterPlayer";
+import BattleListPage from "./pages/BattleListPage";
+import RegisterPlayerPage from "./pages/RegisterPlayerPage";
 import Fight from "./pages/Fight";
-import PlayerAction from "./pages/PlayerAction";
-import EndGamePage from "./pages/EndGame";
+import PlayerAction from "./pages/PlayerActionPage";
+import EndGamePage from "./pages/EndGamePage";
 import NavBar from "./components/NavBar";
 
 const App = () => {

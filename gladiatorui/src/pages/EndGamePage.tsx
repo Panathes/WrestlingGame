@@ -20,7 +20,7 @@ interface PlayerInfo {
     stamina: number;
 }
 
-class EndGame extends React.Component<RouteComponentProps<EndGameParams>, EndGameState>
+class EndGamePage extends React.Component<RouteComponentProps<EndGameParams>, EndGameState>
 {
     constructor(props : any)
     {
@@ -63,4 +63,4 @@ class EndGame extends React.Component<RouteComponentProps<EndGameParams>, EndGam
     }
 }
 
-export default EndGame;
+export default EndGamePage;

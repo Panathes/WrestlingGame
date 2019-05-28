@@ -1,11 +1,11 @@
 import { createStore, applyMiddleware, compose, combineReducers, Store, StoreEnhancerStoreCreator, ReducersMapObject, StoreEnhancer, AnyAction } from 'redux';
 import thunk from 'redux-thunk';
-import { routerReducer, routerMiddleware } from "react-router-redux";
 import * as StoreModule from '.';
 import { ApplicationState, reducers } from '.';
 import { History } from 'history';
 import { Middleware } from 'redux';
 import { MainActions } from '../actions/mainActions';
+import { routerMiddleware, connectRouter } from 'connected-react-router'
 
 export default function configureStore(history: History, initialState?: ApplicationState, middlewares: Middleware[] = []) {
     // build middleware. These are functions that can process the actions before they reach the store.
@@ -18,7 +18,7 @@ export default function configureStore(history: History, initialState?: Applicat
     ) as StoreEnhancer<Store<ApplicationState, MainActions>, any>;
 
     // combine all reducers and instantiate the app-wide store instance
-    const allReducers = buildRootReducer(reducers);
+    const allReducers = buildRootReducer(reducers, history);
     const store = createStore(allReducers, initialState, createStoreWithMiddleware) as Store<ApplicationState>;
 
     // enable Webpack hot module replacement for reducers
@@ -32,6 +32,6 @@ export default function configureStore(history: History, initialState?: Applicat
     return store;
 }
 
-function buildRootReducer(allReducers: ReducersMapObject) {
-    return combineReducers<ApplicationState>(Object.assign({}, allReducers, { routing: routerReducer }));
+function buildRootReducer(allReducers: ReducersMapObject<ApplicationState, MainActions>, history: History) {
+    return combineReducers<ApplicationState>(Object.assign({}, allReducers, { router: connectRouter(history) }));
 }

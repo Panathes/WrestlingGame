@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ClientApiUrl } from '..';
-import { PlayerAction as PlayerActionEnum } from '../models/PlayerAction';
+import { PlayerAttack as PlayerActionEnum } from '../models/PlayerAttack';
 
 interface PlayerActionState {
     action: number,

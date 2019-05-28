@@ -1,5 +1,9 @@
 import { AnyAction } from "redux";
+import { CreateBattleAction, ListingBattleAction } from "./battleActions";
+import { RegisterPlayerAction } from "../actions/playerActions";
 
-export interface MainActions extends AnyAction {
-
-}
+export type MainActions = 
+    CreateBattleAction |
+    ListingBattleAction |
+    RegisterPlayerAction
+;
