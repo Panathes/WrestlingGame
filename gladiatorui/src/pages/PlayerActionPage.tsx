@@ -86,7 +86,7 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
 
     handleBattle(event: any) {
         const id = this.props.match.params.id;
-        const playerId = this.props.match.params.playerId;
+        // const playerId = this.props.match.params.playerId;
 
         // const attack: PlayeractionRequest = { playerId, action : this.state.action};
 
@@ -164,14 +164,14 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
                 </form>
                 <button onClick={this.handleBattle}>Attack</button>               
                 {players.map((item, index) => <div key={index}>{item.name + this.state.action + " " + item.pv + " " + item.stamina}</div>)}             
-                {playerInfos.map((item, index) =>                 
+                {/* {playerInfos.map((item, index) =>                 
                 <ul key={index}>
                     <li></li>
                     <li>{item.name}</li>
                     <li>{this.state.action}</li>
                     <li>{item.pv}</li>
                     <li>{item.stamina}</li>
-                </ul>)}
+                </ul>)} */}
                 {this.state.error.hasError ? <p>{this.state.error.message}</p> : null}
             </>
         )

@@ -6,7 +6,7 @@ import { push } from "connected-react-router";
 import { GameRegisterPlayerRequest } from "../pages/RegisterPlayerPage";
 
 export interface RegisterPlayerAction extends Action<'REGISTER_PLAYER'> {
-
+    playerId: string;
 }
 
 export const RegisterPlayer = (id: string, gladiator: GameRegisterPlayerRequest): AppThunkAction<MainActions> => (dispatch, getState): Promise<any> => {
@@ -16,7 +16,13 @@ export const RegisterPlayer = (id: string, gladiator: GameRegisterPlayerRequest)
         headers: { 'Content-type': 'application/json' }
       }).then(response => response.json())
       .then((playerId : string) =>{
+        const registeredPlayerId: RegisterPlayerAction = {
+            type: 'REGISTER_PLAYER',
+            playerId: playerId
+        }
+        dispatch(registeredPlayerId);
         dispatch(push(`/${id}/${playerId}/action`));
-      }) 
+      }
+    ) 
 }
 

@@ -4,10 +4,12 @@ import { RegisterPlayerAction } from "../actions/playerActions";
 
 export type MainState = {
     battleIds: string[];
+    playerId: string;
 }
 
 export const initialState: MainState = {
     battleIds: [],
+    playerId: ' '
 }
 
 export default (state: MainState = initialState, action : MainActions): MainState => {
@@ -26,6 +28,9 @@ export default (state: MainState = initialState, action : MainActions): MainStat
         }
         case 'REGISTER_PLAYER': {
             const typedAction = action as RegisterPlayerAction;
+            return Object.assign({}, state, {
+                playerId: typedAction.playerId
+            } as MainState)
         }
         default: {
             return state;
