@@ -49,7 +49,6 @@ class EndGamePage extends React.Component<endGameProps, EndGameState>
     }
 
     componentDidMount() {
-        debugger;
         const id = this.props.match.params.id;
         this.props.endGame(id)
         // fetch(ClientApiUrl + `/api/battle/${id}/winner`)
@@ -81,7 +80,7 @@ const endGamePage = connect<EndGameProps, EndGameAction, RouteComponentProps<End
     (state: ApplicationState) => ({
         playerInfo: state.main.playerInfo
     }), {
-        endGame :  EndGame
+        endGame: EndGame
     }
 )(EndGamePage);
 

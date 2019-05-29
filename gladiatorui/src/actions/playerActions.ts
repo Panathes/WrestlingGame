@@ -53,7 +53,7 @@ export interface HandleBattleAction extends Action<'HANDLE_BATTLE'> {
   gameInfos: GameInfo;
 }
 
-export interface HandleError extends Action<'HANDLE_ERROR'> {
+export interface HandleErrorAction extends Action<'HANDLE_ERROR'> {
   error: Error;
 }
 
@@ -116,7 +116,7 @@ export const HandleSubmitAction = (id: string, action: PlayeractionRequest) : Ap
       .then((data) => {
           if (data.status === 400) {
               data.json().then((error) => {
-                const handleError: HandleError ={
+                const handleError: HandleErrorAction ={
                   type: 'HANDLE_ERROR',
                   error: error
                 } 

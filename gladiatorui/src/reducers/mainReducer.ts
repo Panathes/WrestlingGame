@@ -1,6 +1,7 @@
 import { MainActions } from "../actions/mainActions";
 import { CreateBattleAction, ListingBattleAction } from "../actions/battleActions";
-import { RegisterPlayerAction, Gladiator, GameInfo, PlayerInfo, Error, PlayerListAction, HandleBattleAction, HandleError } from "../actions/playerActions";
+import { RegisterPlayerAction, Gladiator, GameInfo, PlayerInfo, Error, PlayerListAction, HandleBattleAction, HandleErrorAction } from "../actions/playerActions";
+import { EndGameAction } from "../actions/endGameActions";
 
 export type MainState = {
     battleIds: string[];
@@ -75,10 +76,16 @@ export default (state: MainState = initialState, action : MainActions): MainStat
             } as MainState)
         }
         case 'HANDLE_ERROR': {
-            const typedAction = action as HandleError; 
+            const typedAction = action as HandleErrorAction; 
             return Object.assign({}, state, {
                 error: typedAction.error
-            })
+            } as MainState)       
+        }
+        case 'END_GAME': {
+            const typedAction = action as EndGameAction;
+            return Object.assign({}, state, {
+                playerInfo: typedAction.playerInfo
+            } as MainState)    
         }
         default: {
             return state;

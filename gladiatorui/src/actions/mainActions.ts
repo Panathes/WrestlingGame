@@ -1,6 +1,7 @@
 import { AnyAction } from "redux";
 import { CreateBattleAction, ListingBattleAction } from "./battleActions";
-import { RegisterPlayerAction, PlayerListAction, HandleBattleAction, HandleError } from "../actions/playerActions";
+import { RegisterPlayerAction, PlayerListAction, HandleBattleAction, HandleErrorAction } from "../actions/playerActions";
+import { EndGameAction } from "./endGameActions";
 
 export type MainActions = 
     CreateBattleAction |
@@ -8,5 +9,6 @@ export type MainActions =
     RegisterPlayerAction |
     PlayerListAction |
     HandleBattleAction |
-    HandleError
+    HandleErrorAction |
+    EndGameAction
 ;
