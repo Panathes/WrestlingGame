@@ -2,6 +2,26 @@ import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ClientApiUrl } from '..';
 import { PlayerAttack as PlayerActionEnum } from '../models/PlayerAttack';
+import { PlayerList, HandleBattle, HandleSubmitAction, RegisterPlayer } from '../actions/playerActions';
+import { connect } from 'react-redux';
+import { ApplicationState } from '../store';
+
+interface ActionPlayerProps {
+    playerId: string;
+
+    players: Gladiator[];
+    playerInfos: PlayerInfo[];
+    gameInfos: GameInfo;
+    error: Error;
+}
+
+interface ActionPlayerAction {
+    playerList: typeof PlayerList;
+    handleBattle: typeof HandleBattle;
+    handleSubmitAction: typeof HandleSubmitAction; 
+}
+
+// Old State from React 
 
 interface PlayerActionState {
     action: number,
@@ -10,6 +30,8 @@ interface PlayerActionState {
     gameInfos: GameInfo;
     error: Error;
 }
+
+// Interface for action
 
 interface PlayerActionParams {
     id: string;
@@ -20,6 +42,8 @@ interface PlayeractionRequest {
     playerId: string;
     action: PlayerActionEnum;
 }
+
+// State Interface
 
 interface Gladiator {
     playerId: string;
@@ -47,9 +71,9 @@ interface Error {
 }
 
 
-export type PlayerActionProps = RouteComponentProps<PlayerActionParams>;
+export type PlayerActionProps = ActionPlayerProps & ActionPlayerAction & RouteComponentProps<PlayerActionParams>;
 
-class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
+class PlayerActionPage extends React.Component<PlayerActionProps, PlayerActionState>
 {
     constructor(props: PlayerActionProps) {
         super(props);
@@ -77,31 +101,33 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
 
     componentDidMount() {
         const id = this.props.match.params.id;
-        fetch(ClientApiUrl + `/api/battle/${id}/playerlist`)
-            .then(response => response.json())
-            .then((data: Gladiator[]) => {
-                this.setState({ players: data });
-            });
+        this.props.playerList(id);
+        // fetch(ClientApiUrl + `/api/battle/${id}/playerlist`)
+        //     .then(response => response.json())
+        //     .then((data: Gladiator[]) => {
+        //         this.setState({ players: data });
+        //     });
     }
 
     handleBattle(event: any) {
         const id = this.props.match.params.id;
+        this.props.handleBattle(id);
         // const playerId = this.props.match.params.playerId;
 
         // const attack: PlayeractionRequest = { playerId, action : this.state.action};
 
-        fetch(ClientApiUrl + `/api/battle/${id}/fight`, {
-            method: 'POST',
-            // body: JSON.stringify(attack),
-            // headers: { 'Content-type': 'application/json' }
-        })
-            .then(response => response.json())
-            .then((data: GameInfo) => {
-                this.setState({ gameInfos: data });
-                if (data.isBattleFinish) {
-                    this.props.history.push(`/${id}/endgame`)
-                }
-            })
+        // fetch(ClientApiUrl + `/api/battle/${id}/fight`, {
+        //     method: 'POST',
+        //     // body: JSON.stringify(attack),
+        //     // headers: { 'Content-type': 'application/json' }
+        // })
+        //     .then(response => response.json())
+        //     .then((data: GameInfo) => {
+        //         this.setState({ gameInfos: data });
+        //         if (data.isBattleFinish) {
+        //             this.props.history.push(`/${id}/endgame`)
+        //         }
+        //     })
     }
 
 
@@ -125,26 +151,31 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
         event.preventDefault();
 
         const id = this.props.match.params.id;
-        const playerId = this.props.match.params.playerId;
+
+        const { playerId } = this.props;
+       
+        // const playerId = this.props.match.params.playerId;
 
         const action: PlayeractionRequest = { playerId, action: this.state.action };
-        fetch(ClientApiUrl + `/api/battle/${id}/action`, {
-            method: 'POST',
-            body: JSON.stringify(action),
-            headers: { 'Content-type': 'application/json' }
-        })
-            .then((data) => {
-                if (data.status === 400) {
-                    data.json().then((error) => {
-                        this.setState({ error: error })
-                    });
-                }
-            });
+
+        this.props.handleSubmitAction(id, action);
+        // fetch(ClientApiUrl + `/api/battle/${id}/action`, {
+        //     method: 'POST',
+        //     body: JSON.stringify(action),
+        //     headers: { 'Content-type': 'application/json' }
+        // })
+        //     .then((data) => {
+        //         if (data.status === 400) {
+        //             data.json().then((error) => {
+        //                 this.setState({ error: error })
+        //             });
+        //         }
+        //     });
     }
 
     public render() {
         const { playerInfos } = this.state;
-        const { players } = this.state;
+        const { players } = this.props;
 
         const id = this.props.match.params.id;
         const { gameInfos } = this.state;
@@ -184,4 +215,19 @@ class PlayerAction extends React.Component<PlayerActionProps, PlayerActionState>
     }
 }
 
-export default PlayerAction;
+const playerActionPage = connect<ActionPlayerProps, ActionPlayerAction, RouteComponentProps<PlayerActionParams>, ApplicationState>(
+    (state: ApplicationState) => ({
+        playerId: state.main.playerId,
+        players: state.main.players,
+        playerInfos: state.main.playerInfos,
+        gameInfos: state.main.gameInfos,
+        error: state.main.error
+    }), {
+        playerList:  PlayerList,
+        handleBattle:  HandleBattle,
+        handleSubmitAction:  HandleSubmitAction 
+    }
+)(PlayerActionPage);
+
+
+export default playerActionPage;

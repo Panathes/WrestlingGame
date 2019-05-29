@@ -1,6 +1,17 @@
 import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { ClientApiUrl } from '..';
+import { EndGame } from '../actions/endGameActions';
+import { connect } from 'react-redux';
+import { ApplicationState } from '../store';
+
+interface EndGameProps {
+    playerInfo: PlayerInfo;
+}
+
+interface EndGameAction {
+    endGame : typeof EndGame;
+}
 
 interface EndGameState
 {
@@ -20,7 +31,9 @@ interface PlayerInfo {
     stamina: number;
 }
 
-class EndGamePage extends React.Component<RouteComponentProps<EndGameParams>, EndGameState>
+type endGameProps = EndGameProps & EndGameAction & RouteComponentProps<EndGameParams>;
+
+class EndGamePage extends React.Component<endGameProps, EndGameState>
 {
     constructor(props : any)
     {
@@ -36,23 +49,24 @@ class EndGamePage extends React.Component<RouteComponentProps<EndGameParams>, En
     }
 
     componentDidMount() {
+        debugger;
         const id = this.props.match.params.id;
-        fetch(ClientApiUrl + `/api/battle/${id}/winner`)
-        .then(response => response.json())
-        .then((data: PlayerInfo) => {
-            this.setState({ playerInfos: data });
-        });
+        this.props.endGame(id)
+        // fetch(ClientApiUrl + `/api/battle/${id}/winner`)
+        // .then(response => response.json())
+        // .then((data: PlayerInfo) => {
+        //     this.setState({ playerInfos: data });
+        // });
     }
 
     public render() {
-        console.log();
             
-        const { playerInfos } = this.state;
+        const { playerInfo } = this.props;
         
         return(
             <>
                 <h1>The battle is over !</h1>
-                 <div >{`The winner is player ${playerInfos.playerId} who choose ${playerInfos.name} !`}</div>               
+                 <div >{`The winner is player ${playerInfo.playerId} who choose ${playerInfo.name} !`}</div>               
 
                 <p>Even if you have this navbar 👌, feel free to click on this link for
                    join the homepage and play a new game !
@@ -63,4 +77,12 @@ class EndGamePage extends React.Component<RouteComponentProps<EndGameParams>, En
     }
 }
 
-export default EndGamePage;
+const endGamePage = connect<EndGameProps, EndGameAction, RouteComponentProps<EndGameParams>, ApplicationState>(
+    (state: ApplicationState) => ({
+        playerInfo: state.main.playerInfo
+    }), {
+        endGame :  EndGame
+    }
+)(EndGamePage);
+
+export default endGamePage;
