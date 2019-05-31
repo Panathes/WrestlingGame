@@ -11,13 +11,16 @@ import NavBar from "./components/NavBar";
 
 const App = () => {
   return (
-    <Switch>
-        <Route path="/" component={GameCreatorPage} exact />
-        <Route path="/list" component={BattleListPage} />
-        <Route path="/:id/register" component={RegisterPlayerPage} />
-        <Route path="/:id/action" component={PlayerActionPage} />
-        <Route path="/:id/endgame" component={EndGamePage} />
-    </Switch>
+    <>
+    <NavBar/>
+      <Switch>
+          <Route path="/" component={GameCreatorPage} exact />
+          <Route path="/list" component={BattleListPage} />
+          <Route path="/:id/register" component={RegisterPlayerPage} />
+          <Route path="/:id/action" component={PlayerActionPage} />
+          <Route path="/:id/endgame" component={EndGamePage} />
+      </Switch>
+    </>
   );
 }
 

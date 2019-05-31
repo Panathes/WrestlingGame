@@ -108,6 +108,7 @@ export const HandleBattle = (id: string) : AppThunkAction<MainActions> => (dispa
 }
 
 export const HandleSubmitAction = (id: string, action: PlayeractionRequest) : AppThunkAction<MainActions> => (dispatch, getState): Promise<any> => {
+
     return fetch(ClientApiUrl + `/api/battle/${id}/action`, {
       method: 'POST',
       body: JSON.stringify(action),
@@ -120,7 +121,7 @@ export const HandleSubmitAction = (id: string, action: PlayeractionRequest) : Ap
                   type: 'HANDLE_ERROR',
                   error: error
                 } 
-              dispatch(error) 
+              dispatch(handleError) 
             });
           }
       });

@@ -194,7 +194,7 @@ class PlayerActionPage extends React.Component<PlayerActionProps, PlayerActionSt
                     {/* <input type="submit" value="Submit" /> */}
                 </form>
                 <button onClick={this.handleBattle}>Attack</button>               
-                {players.map((item, index) => <div key={index}>{item.name + this.state.action + " " + item.pv + " " + item.stamina}</div>)}             
+                {players.map((item, index) =>  <div key={index}>{item.name + this.state.action + " " + item.pv + " " + item.stamina}</div>)}             
                 {/* {playerInfos.map((item, index) =>                 
                 <ul key={index}>
                     <li></li>
